@@ -4,7 +4,8 @@ import itertools
 
 def reads_file_info(reads_file_path):
 
-    dir_path, file_path = os.path.splitdrive(reads_file_path)
+    dir_path, file_path = os.path.split(reads_file_path)
+    file_path = file_path.replace('.fastq.gz', '')
     fields = file_path.split('_')
 
     infos = {}
@@ -26,6 +27,6 @@ def find_pairs(reads_files_paths):
         if (infos[file_1]['sex'] == infos[file_2]['sex'] and
                 infos[file_1]['lane'] == infos[file_2]['lane'] and
                 infos[file_1]['mate'] != infos[file_2]['mate']):
-            pairs.append(tuple(file_1, file_2))
+            pairs.append((file_1, file_2))
 
     return pairs
