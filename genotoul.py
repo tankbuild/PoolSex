@@ -8,9 +8,9 @@ def header(shell_file,
 
     shell_file.write('#!/bin/sh' + '\n')
     if name:
-        shell_file.write('#$ -N' + str(name) + '\n')
+        shell_file.write('#$ -N ' + str(name) + '\n')
     if threads:
-        shell_file.write('#$ -pe parallel_smp' + str(threads) + '\n')
+        shell_file.write('#$ -pe parallel_smp ' + str(threads) + '\n')
     if mem:
         shell_file.write('#$ -l mem=' + str(mem) + '\n')
     if h_vmem:
