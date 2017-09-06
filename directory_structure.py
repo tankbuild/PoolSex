@@ -27,16 +27,16 @@ READS_PATH = [os.path.join(READS_DIR, f) for f in os.listdir(READS_DIR) if
 
 # Qsub files paths
 BWA_INDEX_SH = os.path.join(QSUB_DIR, 'bwa_index.sh')
-REMAPPING_SH = os.path.join(QSUB_DIR, 'mapping.sh')
+MAPPING_SH = os.path.join(QSUB_DIR, 'mapping.sh')
 
 
 # Shell files (for batch qsub)
-def remapping_sh(info):
+def mapping_sh(info):
     file_name = '_'.join(['mapping', info['sex'], info['lane']]) + '.sh'
     return(os.path.join(SHELL_DIR, file_name))
 
 
 # Output files
-def remapping_output(info):
+def mapping_output(info):
     file_name = '_'.join([info['sex'], info['lane']]) + '.bam'
     return(os.path.join(RESULTS_DIR, file_name))
