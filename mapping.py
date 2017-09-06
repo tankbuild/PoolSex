@@ -21,6 +21,6 @@ def generate_shell_files():
                          ' ' + pair[0] +
                          ' ' + pair[1] +
                          ' | samtools view -b -' +
-                         ' >' + mapping_output(info) + '\n')
+                         ' > ' + mapping_output(info) + '\n')
         shell_file.close()
         qsub_file.write('qsub ' + shell_file_path + '\n')
