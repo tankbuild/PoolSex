@@ -8,7 +8,7 @@ GENOMES_DIR = os.path.join(ROOT_DIR, 'genomes')
 QSUB_DIR = os.path.join(ROOT_DIR, 'qsub')
 READS_DIR = os.path.join(ROOT_DIR, 'reads')
 RESULTS_DIR = os.path.join(ROOT_DIR, 'results')
-SCRIPTS_DIR = os.path.join(ROOT_DIR, 'scripts')
+SCRIPTS_DIR = os.path.join(ROOT_DIR, 'poolsex')
 SHELL_DIR = os.path.join(ROOT_DIR, 'shell')
 
 # Genome
