@@ -1,5 +1,4 @@
-import bwa_index
-import mapping
+from poolseq import Pipeline
 
-bwa_index.generate_shell_file()
-mapping.generate_shell_files()
+p = Pipeline()
+p.run()

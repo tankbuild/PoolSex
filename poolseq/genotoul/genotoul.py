@@ -1,10 +1,10 @@
 
 
-def header(shell_file,
-           name=None,
-           threads=None,
-           mem=None,
-           h_vmem=None):
+def print_header(shell_file,
+                 name=None,
+                 threads=None,
+                 mem=None,
+                 h_vmem=None):
 
     shell_file.write('#!/bin/sh' + '\n')
     if name:
@@ -18,6 +18,6 @@ def header(shell_file,
     shell_file.write('\n')
 
 
-def java_module(shell_file):
+def print_java_module(shell_file):
 
     shell_file.write('module load bioinfo/Java8' + '\n\n')
