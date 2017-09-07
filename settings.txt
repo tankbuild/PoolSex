@@ -5,3 +5,4 @@ h_vmem=25G
 bwa=bwa
 picard=/usr/local/bioinfo/src/picard-tools/current/picard.jar
 gatk=/usr/local/bioinfo/src/GATK/GenomeAnalysisTK-3.7/GenomeAnalysisTK.jar
+java=java

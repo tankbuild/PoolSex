@@ -10,6 +10,7 @@ class Parameters():
         self.bwa = None
         self.gatk = None
         self.picard = None
+        self.java = None
         self.load(structure)
 
     def load(self, structure):
