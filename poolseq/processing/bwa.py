@@ -38,7 +38,7 @@ class Bwa():
                              ' > ' + self.structure.output.mapping(info) + '\n')
             shell_file.close()
             qsub_file.write('qsub ' + shell_file_path + '\n')
-            qsub_file.close()
+        qsub_file.close()
 
     def get_info(self, reads_file_path):
         dir_path, file_path = os.path.split(reads_file_path)

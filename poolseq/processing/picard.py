@@ -28,7 +28,7 @@ class Picard():
                              ' SORT_ORDER=coordinate')
             shell_file.close()
             qsub_file.write('qsub ' + shell_file_path + '\n')
-            qsub_file.close()
+        qsub_file.close()
 
     def merge(self):
         pass
