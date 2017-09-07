@@ -31,9 +31,6 @@ class Picard():
             qsub_file.write('qsub ' + shell_file_path + '\n')
         qsub_file.close()
 
-    def merge(self):
-        pass
-
     def add_read_groups(self):
         qsub_file = open(self.structure.qsub.picard_add_read_groups(), 'w')
         for bam_file in self.structure.output.picard_sort_list():
@@ -60,6 +57,35 @@ class Picard():
             shell_file.close()
             qsub_file.write('qsub ' + shell_file_path + '\n')
         qsub_file.close()
+
+    def merge(self):
+        bam_files = self.structure.output.picard_add_read_groups_list()
+        if len(bam_files) > 2:
+            qsub_file = open(self.structure.qsub.picard_merge(), 'w')
+            pairs = file_utils.find_pairs(bam_files)
+            for pair in pairs:
+                sex = file_utils.get_info(pair[0])['sex']
+                shell_file_path = self.structure.shell.picard_merge(sex)
+                shell_file = open(shell_file_path, 'w')
+                genotoul.print_header(shell_file,
+                                      name='picard_merge_' + sex,
+                                      mem=self.parameters.mem,
+                                      h_vmem=self.parameters.h_vmem)
+                genotoul.print_java_module(shell_file)
+                shell_file.write(self.parameters.java +
+                                 ' -Xmx' + self.parameters.java_mem +
+                                 ' -jar ' + self.parameters.picard +
+                                 ' MergeSamFiles' +
+                                 ' I=' + pair[0] +
+                                 ' I=' + pair[1] +
+                                 ' O=' + self.structure.output.picard_merge(sex))
+                shell_file.close()
+                qsub_file.write('qsub ' + shell_file_path + '\n')
+            qsub_file.close()
+        else:
+            for bam_file in bam_files:
+                sex = file_utils.get_info(bam_file)['sex']
+                os.rename(bam_file, self.structure.output.picard_merge(sex))
 
     def validate(self):
         pass

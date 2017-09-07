@@ -15,7 +15,8 @@ class Output():
                 f in os.listdir(self.directories.results) if
                 f.endswith('.bam') and
                 '_sorted' not in f and
-                '_read_groups' not in f]
+                '_read_groups' not in f and
+                len(f.split('_')) > 1]
 
     def picard_sort(self, bam_file_name):
         output_file_name = bam_file_name.replace('.bam', '_sorted.bam')
@@ -34,3 +35,13 @@ class Output():
         return [os.path.join(self.directories.results, f) for
                 f in os.listdir(self.directories.results) if
                 f.endswith('_read_groups.bam')]
+
+    def picard_merge(self, sex):
+        output_file_name = sex + '.bam'
+        return os.path.join(self.directories.results, output_file_name)
+
+    def picard_merge_list(self):
+        return [os.path.join(self.directories.results, f) for
+                f in os.listdir(self.directories.results) if
+                f.endswith('.bam') and
+                len(f.split('_')) == 1]

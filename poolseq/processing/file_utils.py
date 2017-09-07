@@ -24,8 +24,13 @@ def find_pairs(reads_files_paths):
     info = {path: get_info(path) for path in reads_files_paths}
     pairs = []
     for file_1, file_2 in itertools.combinations(info.keys(), 2):
-        if (info[file_1]['sex'] == info[file_2]['sex'] and
-                info[file_1]['lane'] == info[file_2]['lane'] and
-                info[file_1]['mate'] != info[file_2]['mate']):
-            pairs.append((file_1, file_2))
+        if len(info[file_1]) == 4:
+            if (info[file_1]['sex'] == info[file_2]['sex'] and
+                    info[file_1]['lane'] == info[file_2]['lane'] and
+                    info[file_1]['mate'] != info[file_2]['mate']):
+                pairs.append((file_1, file_2))
+        elif len(info[file_1]) == 2:
+            if (info[file_1]['sex'] == info[file_2]['sex'] and
+                    info[file_1]['lane'] != info[file_2]['lane']):
+                pairs.append((file_1, file_2))
     return pairs
