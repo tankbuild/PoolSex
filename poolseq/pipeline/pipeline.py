@@ -13,3 +13,4 @@ class Pipeline():
     def run(self):
         self.processing.bwa.index()
         self.processing.bwa.mapping()
+        self.processing.picard.sort()
