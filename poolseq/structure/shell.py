@@ -6,7 +6,7 @@ class Shell():
     def __init__(self, directories):
         self.directories = directories
 
-    def index(self):
+    def bwa_index(self):
         return os.path.join(self.directories.shell, 'bwa_index.sh')
 
     def mapping(self, info):
