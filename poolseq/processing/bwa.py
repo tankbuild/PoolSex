@@ -11,9 +11,12 @@ class Bwa():
 
     def index(self):
         qsub_file = open(self.structure.qsub.bwa_index(), 'w')
-        genotoul.print_header(qsub_file, name='bwa_index')
-        qsub_file.write(self.parameters.bwa + ' index ' +
-                        self.structure.data.genome() + '\n')
+        shell_file = open(self.structure.shell.bwa_index(), 'w')
+        genotoul.print_header(shell_file, name='bwa_index')
+        shell_file.write(self.parameters.bwa + ' index ' +
+                         self.structure.data.genome() + '\n')
+        shell_file.close()
+        qsub_file.write('qsub ' + self.structure.shell.bwa_index())
         qsub_file.close()
 
     def mapping(self):
@@ -35,6 +38,7 @@ class Bwa():
                              ' > ' + self.structure.output.mapping(info) + '\n')
             shell_file.close()
             qsub_file.write('qsub ' + shell_file_path + '\n')
+            qsub_file.close()
 
     def get_info(self, reads_file_path):
         dir_path, file_path = os.path.split(reads_file_path)
