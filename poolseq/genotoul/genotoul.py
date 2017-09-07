@@ -14,7 +14,7 @@ def print_header(shell_file,
     if mem:
         shell_file.write('#$ -l mem=' + str(mem) + '\n')
     if h_vmem:
-        shell_file.write('#$ -l mem=' + str(h_vmem) + '\n')
+        shell_file.write('#$ -l h_vmem=' + str(h_vmem) + '\n')
     shell_file.write('\n')
 
 
