@@ -14,3 +14,9 @@ class Qsub():
 
     def picard_sort(self):
         return os.path.join(self.directories.qsub, 'picard_sort.sh')
+
+    def picard_add_read_groups(self):
+        return os.path.join(self.directories.qsub, 'picard_add_read_groups.sh')
+
+    def picard_merge(self):
+        return os.path.join(self.directories.qsub, 'picard_merge.sh')

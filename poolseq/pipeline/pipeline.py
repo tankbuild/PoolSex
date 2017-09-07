@@ -14,3 +14,4 @@ class Pipeline():
         self.processing.bwa.index()
         self.processing.bwa.mapping()
         self.processing.picard.sort()
+        self.processing.picard.add_read_groups()

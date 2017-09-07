@@ -4,13 +4,19 @@ import itertools
 
 def get_info(reads_file_path):
     dir_path, file_path = os.path.split(reads_file_path)
-    file_path = file_path.replace('.fastq.gz', '')
-    fields = file_path.split('_')
     info = {}
-    info['species'] = fields[0] + '_' + fields[1]
-    info['sex'] = fields[2]
-    info['lane'] = fields[3]
-    info['mate'] = fields[4]
+    if file_path.endswith('.fastq.gz'):
+        file_path = file_path.replace('.fastq.gz', '')
+        fields = file_path.split('_')
+        info['species'] = fields[0] + '_' + fields[1]
+        info['sex'] = fields[2]
+        info['lane'] = fields[3]
+        info['mate'] = fields[4]
+    elif file_path.endswith('.bam'):
+        file_path = file_path.replace('.bam', '')
+        fields = file_path.split('_')
+        info['sex'] = fields[0]
+        info['lane'] = fields[1]
     return info
 
 
