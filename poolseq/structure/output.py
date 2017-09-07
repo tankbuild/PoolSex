@@ -17,4 +17,4 @@ class Output():
 
     def picard_sort(self, bam_file_name):
         output_file_name = bam_file_name.replace('.bam', '_sorted.bam')
-        return output_file_name
+        return os.path.join(self.directories.results, output_file_name)
