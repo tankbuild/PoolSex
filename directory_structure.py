@@ -25,15 +25,23 @@ if len(READS_FILE) < 2:
 READS_PATH = [os.path.join(READS_DIR, f) for f in os.listdir(READS_DIR) if
               f.endswith('.fastq.gz')]
 
+# Output
+MAPPING_FILES = [f for f in os.listdir(RESULTS_DIR) if f.endswith('.bam')]
+
 # Qsub files paths
 BWA_INDEX_SH = os.path.join(QSUB_DIR, 'bwa_index.sh')
 MAPPING_SH = os.path.join(QSUB_DIR, 'mapping.sh')
+PICARD_SORT_SH = os.path.join(QSUB_DIR, 'picard_sort.sh')
 
 
 # Shell files (for batch qsub)
 def mapping_sh(info):
     file_name = '_'.join(['mapping', info['sex'], info['lane']]) + '.sh'
     return(os.path.join(SHELL_DIR, file_name))
+
+
+def picard_sort_sh():
+    pass
 
 
 # Output files
