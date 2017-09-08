@@ -21,6 +21,9 @@ class Processing():
             self.picard.validate_sam_file.generate_shell_files(data,
                                                                parameters,
                                                                sex)
+            self.picard.mark_duplicates.generate_shell_files(data,
+                                                             parameters,
+                                                             sex)
             for lane, mates in lanes.items():
                 self.bwa.mapping.generate_shell_files(data,
                                                       parameters,
