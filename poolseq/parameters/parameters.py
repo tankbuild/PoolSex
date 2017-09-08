@@ -4,14 +4,15 @@ import os
 class Parameters():
 
     def __init__(self, data):
-        self.threads = None
-        self.java_mem = None
-        self.mem = None
-        self.h_vmem = None
-        self.bwa = None
-        self.gatk = None
-        self.picard = None
-        self.java = None
+        self.threads = '16'
+        self.mem = '21G'
+        self.h_vmem = '25G'
+        self.bwa = 'bwa'
+        self.gatk = 'GenomeAnalysisTK.jar'
+        self.picard = 'picard.jar'
+        self.java = 'java'
+        self.java_mem = '20G'
+        self.java_temp_dir = os.path.join(data.directories.output, 'tmp')
         self.load(data)
 
     def load(self, data):
