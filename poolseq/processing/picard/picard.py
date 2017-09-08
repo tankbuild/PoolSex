@@ -11,4 +11,5 @@ class Picard():
         self.sort = Sort(data)
         self.add_read_groups = AddReadGroups(data)
         self.merge = Merge(data)
-        self.mark_duplicates = Mark(data)
+        self.validate_sam_file = ValidateSamFile(data)
+        self.mark_duplicates = MarkDuplicates(data)
