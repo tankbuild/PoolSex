@@ -13,6 +13,7 @@ class Parameters():
         self.java = 'java'
         self.java_mem = '20G'
         self.java_temp_dir = os.path.join(data.directories.output, 'tmp')
+        self.max_open_temp_files = '800'
         self.load(data)
 
     def load(self, data):
