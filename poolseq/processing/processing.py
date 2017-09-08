@@ -14,6 +14,7 @@ class Processing():
         self.files_info = self.get_files_info(data)
 
     def generate_shell_files(self, data, parameters):
+        self.reset_qsub_files(data)
         self.bwa.index.generate_files(data, parameters)
         files_info = self.files_info
         for sex, lanes in files_info.items():
@@ -50,3 +51,10 @@ class Processing():
             mate = fields[2]
             files_info[sex][lane].append(mate)
         return files_info
+
+    def reset_qsub_files(self, data):
+        qsub_files = [os.path.join(data.directories.qsub, f) for
+                      f in os.listdir(data.directories.qsub) if
+                      f.endswith('.sh')]
+        for qsub_file in qsub_files:
+            os.remove(qsub_file)
