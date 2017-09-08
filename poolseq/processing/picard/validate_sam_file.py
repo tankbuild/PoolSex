@@ -25,7 +25,7 @@ class ValidateSamFile():
         genotoul.print_java_module(shell_file)
         shell_file.write(parameters.java +
                          ' -Xmx' + parameters.java_mem +
-                         '-Djava.io.tmpdir=' + parameters.java_temp_dir +
+                         ' -Djava.io.tmpdir=' + parameters.java_temp_dir +
                          ' -jar ' + parameters.picard +
                          ' ValidateSamFile' +
                          ' I=' + input_file_path +
