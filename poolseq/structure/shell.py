@@ -18,7 +18,7 @@ class Shell():
         return os.path.join(self.directories.shell, file_name)
 
     def picard_add_read_groups(self, bam_file_name):
-        file_name = 'picard_add_read_groups_' + bam_file_name.replace('.bam', '.sh')
+        file_name = 'picard_add_read_groups_' + bam_file_name.replace('_sorted.bam', '.sh')
         return os.path.join(self.directories.shell, file_name)
 
     def picard_merge(self, sex):

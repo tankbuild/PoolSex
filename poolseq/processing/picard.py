@@ -34,7 +34,7 @@ class Picard():
     def add_read_groups(self):
         qsub_file = open(self.structure.qsub.picard_add_read_groups(), 'w')
         for bam_file in self.structure.output.picard_sort_list():
-            bam_file_name = os.path.split(bam_file)[1].replace('_sorted', '')
+            bam_file_name = os.path.split(bam_file)[1]
             shell_file_path = self.structure.shell.picard_add_read_groups(bam_file_name)
             shell_file = open(shell_file_path, 'w')
             info = file_utils.get_info(bam_file)
