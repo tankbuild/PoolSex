@@ -17,6 +17,9 @@ class Processing():
         self.bwa.index.generate_files(data, parameters)
         files_info = self.files_info
         for sex, lanes in files_info.items():
+            self.picard.validate_sam_file.generate_shell_files(data,
+                                                               parameters,
+                                                               sex)
             for lane, mates in lanes.items():
                 self.bwa.mapping.generate_shell_files(data,
                                                       parameters,
