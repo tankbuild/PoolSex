@@ -13,7 +13,7 @@ class MarkDuplicates():
     def generate_shell_files(self, data, parameters, sex):
         qsub_file = file_utils.wa_open(self.qsub_file_path)
         base_file_name = sex
-        base_shell_name = 'picard_validate_' + base_file_name
+        base_shell_name = 'picard_mark_duplicates_' + base_file_name
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
         output_file_path = os.path.join(data.directories.output, base_file_name + '_duplicates.bam')
