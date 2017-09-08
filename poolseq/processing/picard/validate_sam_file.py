@@ -16,7 +16,7 @@ class ValidateSamFile():
         base_shell_name = 'picard_validate_' + base_file_name
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output, base_file_name + '_validated.bam')
+        output_file_path = os.path.join(data.directories.output, base_file_name + '_validation.txt')
         input_file_path = os.path.join(data.directories.output, base_file_name + '.bam')
         genotoul.print_header(shell_file,
                               name=base_shell_name,
