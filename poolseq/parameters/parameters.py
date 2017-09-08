@@ -1,8 +1,9 @@
+import os
 
 
 class Parameters():
 
-    def __init__(self, structure):
+    def __init__(self, data):
         self.threads = None
         self.java_mem = None
         self.mem = None
@@ -11,10 +12,11 @@ class Parameters():
         self.gatk = None
         self.picard = None
         self.java = None
-        self.load(structure)
+        self.load(data)
 
-    def load(self, structure):
-        settings_file = open(structure.poolseq.settings())
+    def load(self, data):
+        settings_file_path = os.path.join(data.directories.root, 'settings.txt')
+        settings_file = open(settings_file_path)
         settings = {name: value for
                     name, value in (line[:-1].split('=') for
                                     line in settings_file)}

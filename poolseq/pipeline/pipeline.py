@@ -1,18 +1,14 @@
-from poolseq.structure import Structure
+from poolseq.data import Data
 from poolseq.processing import Processing
 from poolseq.parameters import Parameters
 
 
 class Pipeline():
 
-    def __init__(self):
-        self.structure = Structure()
-        self.parameters = Parameters(self.structure)
-        self.processing = Processing(self.structure, self.parameters)
+    def __init__(self, root_dir):
+        self.data = Data(root_dir)
+        self.parameters = Parameters(self.data)
+        self.processing = Processing(self.data)
 
     def run(self):
-        self.processing.bwa.index()
-        self.processing.bwa.mapping()
-        self.processing.picard.sort()
-        self.processing.picard.add_read_groups()
-        self.processing.picard.merge()
+        self.processing.generate_shell_files(self.data, self.parameters)
