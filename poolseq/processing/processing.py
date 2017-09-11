@@ -25,6 +25,9 @@ class Processing():
             self.picard.mark_duplicates.generate_shell_files(data,
                                                              parameters,
                                                              sex)
+            self.picard.build_bam_index.generate_shell_files(data,
+                                                             parameters,
+                                                             sex)
             self.gatk.haplotype_caller.generate_shell_files(data,
                                                             parameters,
                                                             sex)
