@@ -27,7 +27,7 @@ class Merge():
         shell_file.write(parameters.java +
                          ' -Xmx' + parameters.java_mem +
                          ' -jar ' + parameters.picard +
-                         ' SortSam')
+                         ' MergeSamFiles')
         for lane_file_path in lane_file_paths:
             shell_file.write(' I=' + lane_file_path)
         shell_file.write(' O=' + output_file_path +
