@@ -16,6 +16,7 @@ class Processing():
     def generate_shell_files(self, data, parameters):
         self.reset_qsub_files(data)
         self.bwa.index.generate_files(data, parameters)
+        self.gatk.index.generate_shell_files(data, parameters)
         files_info = self.files_info
         for sex, lanes in files_info.items():
             self.picard.validate_sam_file.generate_shell_files(data,
@@ -24,8 +25,9 @@ class Processing():
             self.picard.mark_duplicates.generate_shell_files(data,
                                                              parameters,
                                                              sex)
-            self.gatk.index.generate_shell_files(data,
-                                                 parameters)
+            self.gatk.haplotype_caller.generate_shell_files(data,
+                                                            parameters,
+                                                            sex)
             for lane, mates in lanes.items():
                 self.bwa.mapping.generate_shell_files(data,
                                                       parameters,
