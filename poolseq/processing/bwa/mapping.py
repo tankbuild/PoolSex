@@ -16,7 +16,7 @@ class Mapping():
         base_shell_name = 'mapping_' + base_file_name
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output, base_file_name + '.bam')
+        output_file_path = os.path.join(data.directories.output, base_file_name + '_mapping.bam')
         r1_file_path = os.path.join(data.directories.reads,
                                     base_file_name + '_' + mates[0] + '.fastq.gz')
         r2_file_path = os.path.join(data.directories.reads,

@@ -17,7 +17,7 @@ class Merge():
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
         output_file_path = os.path.join(data.directories.output, base_file_name + '.bam')
-        lane_file_paths = [os.path.join(data.directories.output, sex + '_' + lane + '.bam') for
+        lane_file_paths = [os.path.join(data.directories.output, sex + '_' + lane + '_read_groups.bam') for
                            lane in lanes]
         genotoul.print_header(shell_file,
                               name=base_shell_name,
@@ -31,7 +31,7 @@ class Merge():
         for lane_file_path in lane_file_paths:
             shell_file.write(' I=' + lane_file_path)
         shell_file.write(' O=' + output_file_path +
-                         ' SORT_ORDER=coordinate')
+                         ' CREATE_INDEX=True')
         shell_file.close()
         self.shell_file_path.append(shell_file_path)
         self.output_file_path.append(output_file_path)

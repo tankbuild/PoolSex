@@ -19,6 +19,10 @@ class Processing():
         self.gatk.index.generate_shell_files(data, parameters)
         files_info = self.files_info
         for sex, lanes in files_info.items():
+            self.picard.merge.generate_shell_files(data,
+                                                   parameters,
+                                                   sex,
+                                                   lanes)
             self.picard.validate_sam_file.generate_shell_files(data,
                                                                parameters,
                                                                sex)
@@ -45,10 +49,6 @@ class Processing():
                                                                  parameters,
                                                                  sex,
                                                                  lane)
-                self.picard.merge.generate_shell_files(data,
-                                                       parameters,
-                                                       sex,
-                                                       lane)
 
     def get_files_info(self, data):
         files_info = defaultdict(lambda: defaultdict(lambda: list()))
