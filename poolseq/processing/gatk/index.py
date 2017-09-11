@@ -16,8 +16,8 @@ class Index():
         base_shell_name = base_file_name
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output, data.genome_path.replace('.fasta', '.dict'))
-        input_file_path = os.path.join(data.directories.output, data.genome_path)
+        output_file_path = data.genome_path.replace('.fasta', '.dict')
+        input_file_path = data.genome_path
         genotoul.print_header(shell_file,
                               name=base_shell_name,
                               mem=parameters.mem,
