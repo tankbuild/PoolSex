@@ -17,7 +17,7 @@ class Index():
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
         output_file_path = data.genome_path.replace('.fasta', '.dict')
-        input_file_path = data.genome_path
+        genome_file_path = data.genome_path
         genotoul.print_header(shell_file,
                               name=base_shell_name,
                               mem=parameters.mem,
@@ -27,7 +27,7 @@ class Index():
                          ' -Xmx' + parameters.java_mem +
                          ' -jar ' + parameters.picard +
                          ' CreateSequenceDictionary' +
-                         ' I=' + input_file_path +
+                         ' R=' + genome_file_path +
                          ' O=' + output_file_path + '\n\n' +
                          'samtools faidx ' + data.genome_path)
         shell_file.close()
