@@ -28,9 +28,9 @@ class HaplotypeCaller():
                          ' -Xmx' + parameters.java_mem +
                          ' -jar ' + parameters.gatk +
                          ' HaplotypeCaller' +
-                         ' I=' + input_file_path +
-                         ' O=' + output_file_path +
-                         ' R=' + data.genome_path +
+                         ' -I=' + input_file_path +
+                         ' -O=' + output_file_path +
+                         ' -R=' + data.genome_path +
                          ' --sample_ploidy 2' +
                          ' --bamOutput=' + bam_output_file_path)
         shell_file.close()
