@@ -27,7 +27,7 @@ class HaplotypeCaller():
         shell_file.write(parameters.java +
                          ' -Xmx' + parameters.java_mem +
                          ' -jar ' + parameters.gatk +
-                         ' HaplotypeCaller' +
+                         ' -T HaplotypeCaller' +
                          ' -I=' + input_file_path +
                          ' -O=' + output_file_path +
                          ' -R=' + data.genome_path +
