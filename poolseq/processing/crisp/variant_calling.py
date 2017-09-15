@@ -16,8 +16,8 @@ class VariantCalling():
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
         output_file_path = os.path.join(data.directories.output + '.vcf')
-        male_file_path = os.path.join(data.directories.output + 'males_realigned.bam')
-        female_file_path = os.path.join(data.directories.output + 'females_realigned.bam')
+        male_file_path = os.path.join(data.directories.output, 'males_realigned.bam')
+        female_file_path = os.path.join(data.directories.output, 'females_realigned.bam')
         pool_size = 2 * int(parameters.number_of_individuals)
         genotoul.print_header(shell_file,
                               name=base_shell_name)
