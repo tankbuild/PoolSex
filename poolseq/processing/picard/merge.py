@@ -19,19 +19,22 @@ class Merge():
         output_file_path = os.path.join(data.directories.output, base_file_name + '.bam')
         lane_file_paths = [os.path.join(data.directories.output, sex + '_' + lane + '_read_groups.bam') for
                            lane in lanes]
-        genotoul.print_header(shell_file,
-                              name=base_shell_name,
-                              mem=parameters.mem,
-                              h_vmem=parameters.h_vmem)
-        genotoul.print_java_module(shell_file)
-        shell_file.write(parameters.java +
-                         ' -Xmx' + parameters.java_mem +
-                         ' -jar ' + parameters.picard +
-                         ' MergeSamFiles')
-        for lane_file_path in lane_file_paths:
-            shell_file.write(' I=' + lane_file_path)
-        shell_file.write(' O=' + output_file_path +
-                         ' CREATE_INDEX=True')
+        if len(lane_file_paths) > 1:
+            genotoul.print_header(shell_file,
+                                  name=base_shell_name,
+                                  mem=parameters.mem,
+                                  h_vmem=parameters.h_vmem)
+            genotoul.print_java_module(shell_file)
+            shell_file.write(parameters.java +
+                             ' -Xmx' + parameters.java_mem +
+                             ' -jar ' + parameters.picard +
+                             ' MergeSamFiles')
+            for lane_file_path in lane_file_paths:
+                shell_file.write(' I=' + lane_file_path)
+            shell_file.write(' O=' + output_file_path)
+        else:
+            shell_file.write('ln -s ' + lane_file_paths[0] +
+                             ' ' + output_file_path)
         shell_file.close()
         self.shell_file_path.append(shell_file_path)
         self.output_file_path.append(output_file_path)

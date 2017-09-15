@@ -16,7 +16,7 @@ class MarkDuplicates():
         base_shell_name = 'picard_mark_duplicates_' + base_file_name
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output, base_file_name + '_duplicates.bam')
+        output_file_path = os.path.join(data.directories.output, base_file_name + '_no_duplicates.bam')
         log_file_path = os.path.join(data.directories.output, base_file_name + '_duplicates.txt')
         input_file_path = os.path.join(data.directories.output, base_file_name + '.bam')
         genotoul.print_header(shell_file,
@@ -33,7 +33,8 @@ class MarkDuplicates():
                          ' O=' + output_file_path +
                          ' M=' + log_file_path +
                          ' TMP_DIR=' + parameters.java_temp_dir +
-                         ' MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=' + parameters.max_file_handles)
+                         ' MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=' + parameters.max_file_handles +
+                         ' REMOVE_DUPLICATES=true')
         shell_file.close()
         self.shell_file_path.append(shell_file_path)
         self.output_file_path.append(output_file_path)
