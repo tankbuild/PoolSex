@@ -31,7 +31,7 @@ class HaplotypeCaller():
                          ' -I ' + input_file_path +
                          ' -o ' + output_file_path +
                          ' -R ' + data.genome_path +
-                         ' --sample_ploidy 2' +
+                         ' --sample_ploidy 10' +
                          ' --bamOutput ' + bam_output_file_path)
         shell_file.close()
         self.shell_file_path.append(shell_file_path)
