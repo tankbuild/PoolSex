@@ -35,6 +35,9 @@ class Processing():
             self.picard.build_bam_index.generate_shell_files(data,
                                                              parameters,
                                                              sex)
+            self.gatk.realigner_target_creator.generate_shell_files(data,
+                                                                    parameters,
+                                                                    sex)
             self.gatk.indel_realigner.generate_shell_files(data,
                                                            parameters,
                                                            sex)
