@@ -15,7 +15,7 @@ class VariantCalling():
         base_shell_name = 'crisp_variant_calling'
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output + '.vcf')
+        output_file_path = os.path.join(data.directories.output + 'results.vcf')
         male_file_path = os.path.join(data.directories.output, 'male_no_duplicates.bam')
         female_file_path = os.path.join(data.directories.output, 'female_no_duplicates.bam')
         pool_size = 2 * int(parameters.number_of_individuals)
