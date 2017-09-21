@@ -21,7 +21,7 @@ class Processing():
         self.reset_qsub_files(data)
         self.bwa.index.generate_files(data, parameters)
         self.gatk.index.generate_shell_files(data, parameters)
-        self.crisp.index.generate_shell_files(data, parameters)
+        self.samtools.index.generate_shell_files(data, parameters)
         self.crisp.variant_calling.generate_shell_files(data, parameters)
         for sex, lanes in self.files_info.items():
             self.picard.merge.generate_shell_files(data,
