@@ -4,6 +4,7 @@ from poolseq.processing.bwa import Bwa
 from poolseq.processing.crisp import Crisp
 from poolseq.processing.picard import Picard
 from poolseq.processing.gatk import Gatk
+from poolseq.processing.samtools import Samtools
 
 
 class Processing():
@@ -13,6 +14,7 @@ class Processing():
         self.crisp = Crisp(data)
         self.picard = Picard(data)
         self.gatk = Gatk(data)
+        self.samtools = Samtools(data)
         self.files_info = self.get_files_info(data)
 
     def generate_shell_files(self, data, parameters):
@@ -44,6 +46,9 @@ class Processing():
             self.gatk.haplotype_caller.generate_shell_files(data,
                                                             parameters,
                                                             sex)
+            self.samtools.mpileup.generate_shell_files(data,
+                                                       parameters,
+                                                       sex)
             for lane, mates in lanes.items():
                 self.bwa.mapping.generate_shell_files(data,
                                                       parameters,
