@@ -10,6 +10,7 @@ class Parameters():
         self.bwa = 'bwa'
         self.crisp = 'crisp'
         self.samtools = 'samtools'
+        self.popoolation = 'mpileup2sync.jar'
         self.gatk = 'GenomeAnalysisTK.jar'
         self.picard = 'picard.jar'
         self.java = 'java'
