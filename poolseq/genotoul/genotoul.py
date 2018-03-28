@@ -16,6 +16,7 @@ def print_header(shell_file,
     if h_vmem:
         shell_file.write('#$ -l h_vmem=' + str(h_vmem) + '\n')
     shell_file.write('\n')
+    shell_file.write('module purge' + '\n\n')
 
 
 def print_java_module(shell_file):
