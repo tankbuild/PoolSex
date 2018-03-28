@@ -39,7 +39,7 @@ Commands: init     Generate a shell script to initiate the pipeline from an inpu
 Options: -i  --input-folder  Path to a poolsex input folder with the following structure:
           .
           ├─── genomes
-          |     ├────── <species_name>_genome.fasta
+          |     ├────── <species_name>_genome.<fasta/fa/fna>
           ├─── reads
           |     ├────── <sex>_<lane>_<mate_number>.<fasta/fastq><.gz>
           |     ├────── <sex>_<lane>_<mate_number>.<fasta/fastq><.gz>
@@ -48,17 +48,17 @@ Options: -i  --input-folder  Path to a poolsex input folder with the following s
 
 ''')
         if not self.arguments.input_folder:
-            print('\nError: no input folder specified\n')
+            print('\n** Error: no input folder specified\n')
             parser.print_usage()
             print()
             exit(1)
         elif not os.path.isdir(self.arguments.input_folder):
-            print('\nError: input folder "' + self.arguments.input_folder + '"' + ' does not exist' + '\n')
+            print('\n** Error: input folder "' + self.arguments.input_folder + '"' + ' does not exist' + '\n')
             parser.print_usage()
             print()
             exit(1)
         elif not tests.is_valid_input_folder(self.arguments.input_folder):
-            print('\nError: input folder "' + self.arguments.input_folder + '"' + ' is not a valid input folder' + '\n')
+            print('\n** Error: input folder "' + self.arguments.input_folder + '"' + ' is not a valid input folder' + '\n')
             parser.print_usage()
             print()
             exit(1)
@@ -71,17 +71,17 @@ Options: -i  --input-folder  Path to a poolsex input folder with the following s
 Options: -i  --input-folder  Path to a poolsex input folder
 ''')
         if not self.arguments.input_folder:
-            print('\nError: no input folder specified\n')
+            print('\n** Error: no input folder specified\n')
             parser.print_usage()
             print()
             exit(1)
         elif not os.path.isdir(self.arguments.input_folder):
-            print('\nError: input folder "' + self.arguments.input_folder + '"' + ' does not exist' + '\n')
+            print('\n** Error: input folder "' + self.arguments.input_folder + '"' + ' does not exist' + '\n')
             parser.print_usage()
             print()
             exit(1)
         elif not tests.is_valid_input_folder(self.arguments.input_folder):
-            print('\nError: input folder "' + self.arguments.input_folder + '"' + ' is not a valid input folder' + '\n')
+            print('\n** Error: input folder "' + self.arguments.input_folder + '"' + ' is not a valid input folder' + '\n')
             parser.print_usage()
             print()
             exit(1)
@@ -94,17 +94,17 @@ Options: -i  --input-folder  Path to a poolsex input folder
 Options: -i  --input-folder  Path to a poolsex input folder
 ''')
         if not self.arguments.input_folder:
-            print('\nError: no input folder specified\n')
+            print('\n** Error: no input folder specified\n')
             parser.print_usage()
             print()
             exit(1)
         elif not os.path.isdir(self.arguments.input_folder):
-            print('\nError: input folder "' + self.arguments.input_folder + '"' + ' does not exist' + '\n')
+            print('\n** Error: input folder "' + self.arguments.input_folder + '"' + ' does not exist' + '\n')
             parser.print_usage()
             print()
             exit(1)
         elif not tests.is_valid_input_folder(self.arguments.input_folder):
-            print('\nError: input folder "' + self.arguments.input_folder + '"' + ' is not a valid input folder' + '\n')
+            print('\n** Error: input folder "' + self.arguments.input_folder + '"' + ' is not a valid input folder' + '\n')
             parser.print_usage()
             print()
             exit(1)

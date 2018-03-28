@@ -50,7 +50,7 @@ class Processing():
         files_info = defaultdict(lambda: defaultdict(lambda: list()))
         for file in data.reads_paths:
             dir_path, file_name = os.path.split(file)
-            file_name = file_name.replace('.fastq.gz', '')
+            file_name = file_name.split('.')[0]
             fields = file_name.split('_')
             sex = fields[0]
             lane = fields[1]
