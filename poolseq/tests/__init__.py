@@ -1,0 +1,1 @@
+from poolseq.tests.input_folder import is_valid_input_folder
