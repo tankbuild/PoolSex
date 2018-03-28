@@ -5,12 +5,12 @@ import poolseq.genotoul as genotoul
 
 class Mapping():
 
-    def __init__(self, data):
-        self.qsub_file_path = os.path.join(data.directories.qsub, 'mapping.sh')
+    def __init__(self, data, files_info):
+        self.prefix = 'bwa_mapping'
+        self.qsub_file_path = os.path.join(data.directories.qsub, 'bwa_mapping.sh')
         self.shell_file_path = defaultdict(lambda: dict())
         self.output_file_path = []
         self.job_id = []
-        self.prefix = 'bwa_mapping'
 
     def generate_shell_files(self, data, parameters, sex, lane, mates):
         base_file_name = '_'.join([sex, lane])

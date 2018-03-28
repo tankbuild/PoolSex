@@ -5,7 +5,7 @@ import poolseq.genotoul as genotoul
 
 class Sort():
 
-    def __init__(self, data):
+    def __init__(self, data, files_info):
         self.qsub_file_path = os.path.join(data.directories.qsub, 'picard_sort.sh')
         self.shell_file_path = defaultdict(lambda: dict())
         self.output_file_path = []

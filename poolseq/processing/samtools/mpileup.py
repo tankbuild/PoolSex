@@ -4,10 +4,11 @@ import poolseq.genotoul as genotoul
 
 class Mpileup():
 
-    def __init__(self, data):
+    def __init__(self, data, files_info):
         self.qsub_file_path = os.path.join(data.directories.qsub, 'samtools_mpileup.sh')
         self.shell_file_path = os.path.join(data.directories.shell, 'samtools_mpileup.sh')
         self.job_id = 'samtools_mpileup'
+        self.output_file_path = []
 
     def generate_shell_files(self, data, parameters, sexes):
         shell_file = open(self.shell_file_path, 'w')
@@ -22,3 +23,4 @@ class Mpileup():
                          ' -o ' + output_file_path +
                          ' ' + ' '.join([i for i in input_file_path]))
         shell_file.close()
+        self.output_file_path.append(output_file_path)

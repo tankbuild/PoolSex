@@ -4,9 +4,10 @@ import poolseq.genotoul as genotoul
 
 class Mpileup2sync():
 
-    def __init__(self, data):
+    def __init__(self, data, files_info):
         self.qsub_file_path = os.path.join(data.directories.qsub, 'popoolation_mpileup2sync.sh')
         self.shell_file_path = os.path.join(data.directories.shell, 'popoolation_mpileup2sync.sh')
+        self.output_file_path = []
 
     def generate_shell_files(self, data, parameters):
         shell_file = open(self.shell_file_path, 'w')
@@ -24,3 +25,4 @@ class Mpileup2sync():
                          ' --min-qual 20' +
                          ' --threads ' + parameters.threads)
         shell_file.close()
+        self.output_file_path.append(output_file_path)

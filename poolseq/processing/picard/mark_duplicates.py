@@ -4,7 +4,7 @@ import poolseq.genotoul as genotoul
 
 class MarkDuplicates():
 
-    def __init__(self, data):
+    def __init__(self, data, files_info):
         self.qsub_file_path = os.path.join(data.directories.qsub, 'picard_mark_duplicates.sh')
         self.shell_file_path = {}
         self.output_file_path = []
