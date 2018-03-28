@@ -1,6 +1,7 @@
 genomes = 'genomes'
 qsub = 'qsub'
+output = 'output'
 reads = 'reads'
-output = 'results'
+results = 'results'
 poolseq = 'poolseq'
 shell = 'shell'

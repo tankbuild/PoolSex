@@ -6,7 +6,7 @@ from poolseq.processing import file_utils
 class Index():
 
     def __init__(self, data):
-        self.qsub_file_path = os.path.join(data.directories.qsub, 'crisp_index.sh')
+        self.qsub_file_path = os.path.join(data.directories.qsub, 'samtools_index.sh')
         self.shell_file_path = []
         self.output_file_path = []
 

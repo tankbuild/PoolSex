@@ -1,11 +1,13 @@
 import os
 from poolseq.data.directories import Directories
+from poolseq.data.files import Files
 
 
 class Data():
 
     def __init__(self, root_dir):
         self.directories = Directories(root_dir)
+        self.files = Files(root_dir)
         self.genome_path = self.get_genome_path()
         self.reads_paths = self.get_reads_path()
 

@@ -17,8 +17,8 @@ class AddReadGroups():
         base_shell_name = self.prefix + '_' + base_file_name
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output, base_file_name + '_read_groups.bam')
-        input_file_path = os.path.join(data.directories.output, base_file_name + '_sorted.bam')
+        output_file_path = os.path.join(data.directories.results, base_file_name + '_read_groups.bam')
+        input_file_path = os.path.join(data.directories.results, base_file_name + '_sorted.bam')
         genotoul.print_header(shell_file,
                               name=base_shell_name,
                               mem=parameters.mem,

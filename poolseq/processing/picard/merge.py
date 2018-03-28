@@ -16,8 +16,8 @@ class Merge():
         base_shell_name = self.prefix + '_' + base_file_name
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output, base_file_name + '.bam')
-        lane_file_paths = [os.path.join(data.directories.output, sex + '_' + lane + '_read_groups.bam') for
+        output_file_path = os.path.join(data.directories.results, base_file_name + '.bam')
+        lane_file_paths = [os.path.join(data.directories.results, sex + '_' + lane + '_read_groups.bam') for
                            lane in lanes]
         self.job_id.append(base_shell_name)
         if len(lane_file_paths) > 1:

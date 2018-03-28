@@ -15,7 +15,7 @@ class BuildBamIndex():
         base_shell_name = 'index_bam_file_' + base_file_name
         shell_file_path = os.path.join(data.directories.shell, base_shell_name + '.sh')
         shell_file = open(shell_file_path, 'w')
-        input_file_path = os.path.join(data.directories.output, base_file_name + '_no_duplicates.bam')
+        input_file_path = os.path.join(data.directories.results, base_file_name + '_no_duplicates.bam')
         genotoul.print_header(shell_file,
                               name=base_shell_name,
                               mem=parameters.mem,

@@ -11,8 +11,8 @@ class Mpileup():
 
     def generate_shell_files(self, data, parameters, sexes):
         shell_file = open(self.shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output, 'pool.mpileup')
-        input_file_path = [os.path.join(data.directories.output, sex + '_no_duplicates.bam')for sex in sexes]
+        output_file_path = os.path.join(data.directories.results, 'pool.mpileup')
+        input_file_path = [os.path.join(data.directories.results, sex + '_no_duplicates.bam')for sex in sexes]
         genotoul.print_header(shell_file,
                               threads=parameters.threads,
                               name=self.job_id)

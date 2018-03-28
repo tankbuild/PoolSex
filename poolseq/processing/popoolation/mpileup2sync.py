@@ -10,8 +10,8 @@ class Mpileup2sync():
 
     def generate_shell_files(self, data, parameters):
         shell_file = open(self.shell_file_path, 'w')
-        output_file_path = os.path.join(data.directories.output, 'pool.sync')
-        input_file_path = os.path.join(data.directories.output, 'pool.mpileup')
+        output_file_path = os.path.join(data.directories.results, 'pool.sync')
+        input_file_path = os.path.join(data.directories.results, 'pool.mpileup')
         genotoul.print_header(shell_file,
                               threads=parameters.threads,
                               name='popoolation_mpileup2sync')

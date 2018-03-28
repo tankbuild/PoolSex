@@ -15,7 +15,7 @@ class Parameters():
         self.picard = 'picard.jar'
         self.java = 'java'
         self.java_mem = '20G'
-        self.java_temp_dir = os.path.join(data.directories.output, 'tmp')
+        self.java_temp_dir = os.path.join(data.directories.results, 'tmp')
         self.max_open_temp_files = '800'
         self.max_file_handles = '1000'
         self.number_of_individuals = '1'
@@ -23,8 +23,7 @@ class Parameters():
         self.load(data)
 
     def load(self, data):
-        settings_file_path = os.path.join(data.directories.root, 'settings.txt')
-        settings_file = open(settings_file_path)
+        settings_file = open(data.files.settings)
         settings = {name: value for
                     name, value in (line[:-1].split('=') for
                                     line in settings_file)}
