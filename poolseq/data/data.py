@@ -24,4 +24,5 @@ class Data():
             print('- Error: reads files not found')
         return [os.path.join(self.directories.reads, f) for
                 f in os.listdir(self.directories.reads) if
-                f.endswith('.fastq.gz')]
+                f.endswith('.fastq.gz') or f.endswith('.fasta.gz') or
+                f.endswith('.fastq') or f.endswith('.fasta')]
