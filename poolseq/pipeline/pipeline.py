@@ -19,17 +19,17 @@ class Pipeline():
         self.processing.generate_shell_files(self.data, self.parameters)
 
     def clean(self):
-        output_files = (os.path.join(self.data.directories.output, f) for
-                        f in os.listdir(self.data.directories.output) if
-                        os.path.isfile(os.path.join(self.data.directories.output, f)) or
-                        os.path.isdir(os.path.join(self.data.directories.output, f)))
+        results_files = (os.path.join(self.data.directories.results, f) for
+                         f in os.listdir(self.data.directories.results) if
+                         os.path.isfile(os.path.join(self.data.directories.results, f)) or
+                         os.path.isdir(os.path.join(self.data.directories.results, f)))
         shell_files = (os.path.join(self.data.directories.shell, f) for
                        f in os.listdir(self.data.directories.shell) if
                        os.path.isfile(os.path.join(self.data.directories.shell, f)))
         qsub_files = (os.path.join(self.data.directories.qsub, f) for
                       f in os.listdir(self.data.directories.qsub) if
                       os.path.isfile(os.path.join(self.data.directories.qsub, f)))
-        for file in output_files:
+        for file in results_files:
             os.remove(file)
         for file in shell_files:
             os.remove(file)
