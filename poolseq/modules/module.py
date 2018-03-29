@@ -9,8 +9,8 @@ class Module():
         self.sex = data.modules[name]['sex']
         self.lane = data.modules[name]['lane']
         self.mate = data.modules[name]['mate']
-        self.output_format = data.modules[name]['output_format']
-        self.instances = defaultdict(lambda: {'shell': None, 'output': None, 'job_id': None,
+        self.results_format = data.modules[name]['results_format']
+        self.instances = defaultdict(lambda: {'shell': None, 'results': None, 'job_id': None,
                                               'sex': None, 'lane': None, 'mates': None, })
         self.get_instances(data, files_info)
         if dependency:
@@ -39,7 +39,7 @@ class Module():
 
     def fill_instance(self, data, instance_name, full_file_name, sex=None, lane=None, mates=None):
         self.instances[instance_name]['shell'] = os.path.join(data.directories.shell, full_file_name + '.sh')
-        self.instances[instance_name]['output'] = os.path.join(data.directories.results, full_file_name + '.' + self.output_format)
+        self.instances[instance_name]['results'] = os.path.join(data.directories.results, full_file_name + '.' + self.results_format)
         self.instances[instance_name]['job_id'] = full_file_name
         if sex:
             self.instances[instance_name]['sex'] = sex
@@ -47,3 +47,15 @@ class Module():
             self.instances[instance_name]['lane'] = lane
         if mates:
             self.instances[instance_name]['mates'] = mates
+
+    def clean_module_files(self, data):
+        for instance, instance_data in self.instances.items():
+            if os.path.isfile(instance_data['results']):
+                os.remove(instance_data['results'])
+            if os.path.isfile(instance_data['shell']):
+                os.remove(instance_data['shell'])
+            output_files = [os.path.join(data.directories.output, f) for
+                            f in os.listdir(data.directories.output) if
+                            instance in f]
+            for output_file in output_files:
+                os.remove(output_file)

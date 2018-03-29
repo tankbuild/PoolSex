@@ -14,8 +14,8 @@ class Mpileup2sync(Module):
             shell_file.write(parameters.java +
                              ' -Xmx' + parameters.java_mem + ' \\\n' +
                              '-jar ' + parameters.popoolation + ' \\\n' +
-                             '--input ' + self.input[instance]['output'] + ' \\\n' +
-                             '--output' + instance_data['output'] + ' \\\n' +
+                             '--input ' + self.input[instance]['results'] + ' \\\n' +
+                             '--output' + instance_data['results'] + ' \\\n' +
                              '--fastq-type sanger' + ' \\\n' +
                              '--min-qual 20' + ' \\\n' +
                              '--threads ' + parameters.threads)

@@ -6,7 +6,7 @@ class Merge(Module):
 
     def generate_shell_files(self, data, parameters, qsub_file, hold=True):
         for instance, instance_data in self.instances.items():
-            input_file_paths = [d['output'] for
+            input_file_paths = [d['results'] for
                                 d in self.input.values() if
                                 d['sex'] == instance_data['sex']]
             shell_file = open(instance_data['shell'], 'w')
@@ -22,12 +22,12 @@ class Merge(Module):
                                  'MergeSamFiles' + ' \\\n')
                 for input_file_path in input_file_paths:
                     shell_file.write('I=' + input_file_path + ' \\\n')
-                shell_file.write('O=' + instance_data['output'])
+                shell_file.write('O=' + instance_data['results'])
             else:
                 genotoul.print_header(shell_file,
                                       name='_'.join([self.prefix, instance]))
                 shell_file.write('ln -s ' + input_file_paths[0] +
-                                 ' ' + instance_data['output'])
+                                 ' ' + instance_data['results'])
             shell_file.close()
             hold_ids = [d['job_id'] for
                         d in self.input.values() if

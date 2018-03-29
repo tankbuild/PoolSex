@@ -16,8 +16,8 @@ class Groups(Module):
                              ' -Xmx' + parameters.java_mem + ' \\\n' +
                              '-jar ' + parameters.picard + ' \\\n' +
                              'AddOrReplaceReadGroups' + ' \\\n' +
-                             'I=' + self.input[instance]['output'] + ' \\\n' +
-                             'O=' + instance_data['output'] + ' \\\n' +
+                             'I=' + self.input[instance]['results'] + ' \\\n' +
+                             'O=' + instance_data['results'] + ' \\\n' +
                              'RGID=' + instance_data['sex'] + '_' + instance_data['lane'] + ' \\\n' +
                              'RGLB=' + instance_data['sex'] + ' \\\n' +
                              'RGPL=illumina' + ' \\\n' +

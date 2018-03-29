@@ -19,8 +19,8 @@ class Duplicates(Module):
                              '-Djava.io.tmpdir=' + parameters.java_temp_dir + ' \\\n' +
                              '-jar ' + parameters.picard + ' \\\n' +
                              'MarkDuplicates' + ' \\\n' +
-                             'I=' + self.input[instance]['output'] + ' \\\n' +
-                             'O=' + instance_data['output'] + ' \\\n' +
+                             'I=' + self.input[instance]['results'] + ' \\\n' +
+                             'O=' + instance_data['results'] + ' \\\n' +
                              'M=' + log_file_path + ' \\\n' +
                              'TMP_DIR=' + parameters.java_temp_dir + ' \\\n' +
                              'MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=' + parameters.max_file_handles + ' \\\n' +

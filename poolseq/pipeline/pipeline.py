@@ -4,6 +4,7 @@ from poolseq.data import Data
 from poolseq.parameters import Parameters
 from poolseq.parser import Parser
 from poolseq.modules import Modules
+from poolseq.tests import user_check_clean
 
 
 class Pipeline():
@@ -12,51 +13,50 @@ class Pipeline():
         self.parser = Parser(arguments)
         self.data = Data(self.parser.arguments.input_folder)
         self.parameters = Parameters(self.data)
-        self.files_info = self.get_files_info(self.data)
+        self.files_info = self.get_files_info()
         self.modules = Modules(self.data, self.files_info)
         self.run_list = {'init': self.init, 'clean': self.clean, 'restart': self.restart}
-        self.steps = ('index', 'map', 'sort', 'groups', 'merge', 'duplicates', 'mpileup', 'sync')
+        self.steps = ('index', 'mapping', 'sort', 'groups', 'merge', 'duplicates', 'mpileup', 'mpileup2sync')
+        self.module_list = {'index': self.modules.index,
+                            'mapping': self.modules.mapping,
+                            'sort': self.modules.sort,
+                            'groups': self.modules.groups,
+                            'merge': self.modules.merge,
+                            'duplicates': self.modules.duplicates,
+                            'mpileup': self.modules.mpileup,
+                            'mpileup2sync': self.modules.mpileup2sync}
         self.run_list[self.parser.arguments.command]()
 
     def init(self):
-        self.generate_pipeline_shell_file(self.data, 5)
+        self.generate_pipeline_shell_files()
 
     def clean(self):
+        user_check = user_check_clean()
+        if not user_check:
+            return
         if not self.parser.arguments.step:
             step = 0
         else:
             step = self.steps.index(self.parser.arguments.step)
-        if step < 1:
-            files = [os.path.join(self.data.directories.genomes, f) for
-                     f in os.listdir(self.data.directories.genomes)]
-            for file in files:
-                if file != self.data.genome_path:
-                    os.remove(file)
-        if step < 2:
-            self.clean_module_files(self.modules.mapping)
-        if step < 3:
-            self.clean_module_files(self.modules.sort)
-        if step < 4:
-            self.clean_module_files(self.modules.groups)
-        if step < 5:
-            self.clean_module_files(self.modules.merge)
-        if step < 6:
-            self.clean_module_files(self.modules.duplicates)
-        if step < 7:
-            self.clean_module_files(self.modules.mpileup)
-        self.clean_module_files(self.modules.mpileup2sync)
+        for i in range(step, len(self.steps)):
+            self.module_list[self.steps[i]].clean_module_files(self.data)
 
     def restart(self):
-        pass
-        # if not self.parser.arguments.step:
-        #     pass
-        # else:
-        #     step_n = self.steps.index(self.parser.arguments.step)
-        # self.processing.generate_shell_files(self.data, self.parameters, step=step_n)
+        if not self.parser.arguments.step:
+            pass
+            # output_files = [os.path.join(self.output_folder, f) for
+            #                 f in os.listdir(self.output_folder) if
+            #                 instance in f and f.split('.')[1][0] == 'o']
+            # for output_file in output_files:
+            #     pass
+        else:
+            step_n = self.steps.index(self.parser.arguments.step)
+        self.clean()
+        self.generate_pipeline_shell_files(step=step_n)
 
-    def get_files_info(self, data):
+    def get_files_info(self):
         files_info = defaultdict(lambda: defaultdict(lambda: list()))
-        for file in data.reads_paths:
+        for file in self.data.reads_paths:
             dir_path, file_name = os.path.split(file)
             file_name = file_name.split('.')[0]
             fields = file_name.split('_')
@@ -66,15 +66,10 @@ class Pipeline():
             files_info[sex][lane].append(mate)
         return files_info
 
-    def clean_module_files(self, module):
-        for instance in module.instances.values():
-            if os.path.isfile(instance['output']):
-                os.remove(instance['output'])
-
-    def generate_pipeline_shell_file(self, data, step):
+    def generate_pipeline_shell_files(self, step=0):
         if not step:
             step = 0
-        qsub_file_path = os.path.join(data.directories.qsub, 'run_pipeline.sh')
+        qsub_file_path = os.path.join(self.data.directories.qsub, 'run_pipeline.sh')
         qsub_file = open(qsub_file_path, 'w')
         if step < 1:
             self.modules.index.generate_shell_files(self.data, self.parameters, qsub_file)

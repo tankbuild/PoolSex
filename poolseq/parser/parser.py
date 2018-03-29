@@ -84,7 +84,7 @@ Options: -i  --input-folder  Path to a poolsex input folder
             usage='''python3 poolsex.py restart -i input_folder [-s step]
 
 Options: -i  --input-folder  Path to a poolsex input folder
-         -s  --step          Step to restart from (index, map, sort, groups, merge, duplicates, mpileup, sync)
+         -s  --step          Step to restart from (index, mapping, sort, groups, merge, duplicates, mpileup, mpileup2sync)
 ''')
         parser.add_argument('--input-folder', '-i',
                             help='Path to a poolsex input folder')

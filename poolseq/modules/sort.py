@@ -15,8 +15,8 @@ class Sort(Module):
                              ' -Xmx' + parameters.java_mem + ' \\\n' +
                              '-jar ' + parameters.picard + ' \\\n' +
                              'SortSam' + ' \\\n' +
-                             'I=' + self.input[instance]['output'] + ' \\\n' +
-                             'O=' + instance_data['output'] + ' \\\n' +
+                             'I=' + self.input[instance]['results'] + ' \\\n' +
+                             'O=' + instance_data['results'] + ' \\\n' +
                              'SORT_ORDER=coordinate')
             shell_file.close()
             qsub_file.write('qsub ')
