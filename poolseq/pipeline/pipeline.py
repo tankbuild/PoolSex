@@ -12,6 +12,7 @@ class Pipeline():
     def __init__(self, arguments):
         self.parser = Parser(arguments)
         self.data = Data(self.parser.arguments.input_folder)
+        self.qsub_file_path = os.path.join(self.data.directories.qsub, 'run_pipeline.sh')
         self.parameters = Parameters(self.data)
         self.files_info = self.get_files_info()
         self.modules = Modules(self.data, self.files_info)
@@ -29,6 +30,7 @@ class Pipeline():
 
     def init(self):
         self.generate_pipeline_shell_files()
+        self.submit_jobs()
 
     def clean(self, step=0):
         user_check = user_check_clean()
@@ -50,6 +52,7 @@ class Pipeline():
         print('Restarting from step: ' + self.steps[step_n])
         self.clean(step=step_n)
         self.generate_pipeline_shell_files(step=step_n)
+        self.submit_jobs()
 
     def get_files_info(self):
         files_info = defaultdict(lambda: defaultdict(lambda: list()))
@@ -66,11 +69,16 @@ class Pipeline():
     def generate_pipeline_shell_files(self, step=0):
         if not step:
             step = 0
-        qsub_file_path = os.path.join(self.data.directories.qsub, 'run_pipeline.sh')
-        qsub_file = open(qsub_file_path, 'w')
+        qsub_file = open(self.qsub_file_path, 'w')
         qsub_file.write('cd ' + self.data.directories.output + '\n')
         for i in range(step, len(self.steps)):
             if i == step and i != 0:
                 self.module_list[self.steps[step]].generate_shell_files(self.data, self.parameters, qsub_file, hold=False)
             else:
                 self.module_list[self.steps[i]].generate_shell_files(self.data, self.parameters, qsub_file)
+
+    def submit_jobs(self):
+        if self.parser.arguments.run_jobs:
+            print('Submitting jobs ...')
+            os.system('chmod +x ' + self.qsub_file_path)
+            os.system(self.qsub_file_path)
