@@ -68,6 +68,9 @@ class Pipeline():
             step = 0
         qsub_file_path = os.path.join(self.data.directories.qsub, 'run_pipeline.sh')
         qsub_file = open(qsub_file_path, 'w')
-        self.module_list[self.steps[step]].generate_shell_files(self.data, self.parameters, qsub_file, hold=False)
-        for i in range(step + 1, len(self.steps)):
-            self.module_list[self.steps[i]].generate_shell_files(self.data, self.parameters, qsub_file)
+        qsub_file.write('cd ' + self.data.directories.output + '\n')
+        for i in range(step, len(self.steps)):
+            if i == step and i != 0:
+                self.module_list[self.steps[step]].generate_shell_files(self.data, self.parameters, qsub_file, hold=False)
+            else:
+                self.module_list[self.steps[i]].generate_shell_files(self.data, self.parameters, qsub_file)
