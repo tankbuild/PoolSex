@@ -49,13 +49,46 @@ class Module():
             self.instances[instance_name]['mates'] = mates
 
     def clean_module_files(self, data):
-        for instance, instance_data in self.instances.items():
-            if os.path.isfile(instance_data['results']):
-                os.remove(instance_data['results'])
-            if os.path.isfile(instance_data['shell']):
-                os.remove(instance_data['shell'])
+        for instance in self.instances.values():
+            if os.path.isfile(instance['results']):
+                os.remove(instance['results'])
+            if os.path.isfile(instance['shell']):
+                os.remove(instance['shell'])
             output_files = [os.path.join(data.directories.output, f) for
                             f in os.listdir(data.directories.output) if
-                            instance in f]
+                            f.split('.')[0] == instance['job_id']]
             for output_file in output_files:
                 os.remove(output_file)
+
+    def was_successful(self, data):
+        success = True
+        for instance in self.instances.values():
+            output_files = [os.path.join(data.directories.output, f) for
+                            f in os.listdir(data.directories.output) if
+                            f.split('.')[0] == instance['job_id'] and
+                            f.split('.')[1][0] == 'o']
+            if len(output_files) == 0:
+                success = False
+            elif len(output_files) == 1:
+                if not self.test_output_file(output_files[0]):
+                    success = False
+            else:
+                edit_times = {file: os.path.getmtime(file) for file in output_files}
+                last_file = max(edit_times, key=edit_times.get)
+                if not self.test_output_file(last_file):
+                    success = False
+        return success
+
+    def test_output_file(self, output_file_path):
+        success = True
+        file = open(output_file_path)
+        line = 'a'
+        while line:
+            temp = file.readline()
+            if temp:
+                line = temp
+            else:
+                break
+        if not line.startswith('Epilog : job finished'):
+            success = False
+        return success
