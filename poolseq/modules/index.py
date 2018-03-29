@@ -9,7 +9,7 @@ class Index(Module):
         for instance, instance_data in self.instances.items():
             shell_file = open(instance_data['shell'], 'w')
             genotoul.print_header(shell_file,
-                                  name=self.prefix)
+                                  name=instance_data['job_id'])
             shell_file.write(parameters.bwa + ' index ' +
                              data.genome_path + '\n')
             shell_file.close()

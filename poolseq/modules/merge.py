@@ -12,7 +12,7 @@ class Merge(Module):
             shell_file = open(instance_data['shell'], 'w')
             if len(input_file_paths) > 1:
                 genotoul.print_header(shell_file,
-                                      name='_'.join([self.prefix, instance]),
+                                      name=instance_data['job_id'],
                                       mem=parameters.mem,
                                       h_vmem=parameters.h_vmem)
                 genotoul.print_java_module(shell_file)

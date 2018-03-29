@@ -13,7 +13,7 @@ class Mapping(Module):
             r2_file_path = os.path.join(data.directories.reads,
                                         instance + '_' + instance_data['mates'][1] + '.fastq.gz')
             genotoul.print_header(shell_file,
-                                  name='_'.join([self.prefix, instance]),
+                                  name=instance_data['job_id'],
                                   threads=parameters.threads)
             shell_file.write(parameters.bwa + ' mem \\\n' +
                              '-t ' + str(parameters.threads) + ' \\\n' +

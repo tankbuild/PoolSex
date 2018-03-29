@@ -9,7 +9,7 @@ class Mpileup(Module):
             shell_file = open(instance_data['shell'], 'w')
             input_file_paths = [d['results'] for d in self.input.values()]
             genotoul.print_header(shell_file,
-                                  name='_'.join([self.prefix, instance]),
+                                  name=instance_data['job_id'],
                                   threads=parameters.threads)
             genotoul.print_java_module(shell_file)
             shell_file.write(parameters.samtools +

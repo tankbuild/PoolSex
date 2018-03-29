@@ -1,4 +1,5 @@
 import os
+import itertools
 from collections import defaultdict
 
 
@@ -9,6 +10,7 @@ class Module():
         self.sex = data.modules[name]['sex']
         self.lane = data.modules[name]['lane']
         self.mate = data.modules[name]['mate']
+        self.pairwise = data.modules[name]['pairwise']
         self.results_format = data.modules[name]['results_format']
         self.instances = defaultdict(lambda: {'shell': None, 'results': None, 'job_id': None,
                                               'sex': None, 'lane': None, 'mates': None, })
@@ -35,7 +37,13 @@ class Module():
                 else:
                     self.fill_instance(data, instance_sex, file_sex, sex=sex)
         else:
-            self.fill_instance(data, 'unique', full_file_name)
+            if self.pairwise and len(files_info.keys()) > 2:
+                for sex1, sex2 in itertools.combinations(files_info.keys(), 2):
+                    instance_pair = '_'.join([sex1, sex2])
+                    file_pair = '_'.join([full_file_name, sex1, sex2])
+                    self.fill_instance(data, instance_pair, file_pair)
+            else:
+                self.fill_instance(data, 'unique', full_file_name)
 
     def fill_instance(self, data, instance_name, full_file_name, sex=None, lane=None, mates=None):
         self.instances[instance_name]['shell'] = os.path.join(data.directories.shell, full_file_name + '.sh')
