@@ -24,6 +24,9 @@ Commands: init     Generate a shell script to initiate the pipeline from an inpu
         self.parser.add_argument('--run-jobs', '-r', action='store_true',
                                  help='If --run-jobs is specified, the pipeline will submit the jobs with qsub.',
                                  default=False)
+        self.parser.add_argument('--clean-temp', '-c', action='store_true',
+                                 help='If --clean-temp is specified, results files from intermediate steps will be deleted after completion of the pipeline.',
+                                 default=False)
         self.arguments = self.parser.parse_args(sys.argv[1:2])
         if not self.arguments.command:
             print('\n** Error: no command specified\n')
@@ -56,12 +59,16 @@ Options: -i  --input-folder  Path to a poolsex input folder with the following s
           └─── settings.txt
 
          -r  --run-jobs      If --run-jobs is specified, the pipeline will submit the jobs with qsub
+         -c  --clean-temp    If --clean-temp is specified, results files from intermediate steps will be deleted after completion of the pipeline.
 
 ''')
         parser.add_argument('--input-folder', '-i',
                             help='Path to a poolsex input folder')
         parser.add_argument('--run-jobs', '-r', action='store_true',
                             help='If --run-jobs is specified, the pipeline will submit the jobs with qsub.',
+                            default=False)
+        parser.add_argument('--clean-temp', '-c', action='store_true',
+                            help='If --clean-temp is specified, results files from intermediate steps will be deleted after completion of the pipeline.',
                             default=False)
         parser.parse_args(sys.argv[2:])
         self.arguments = self.parser.parse_args(sys.argv[1:])  # This is done here to separate "-h" for each parser
@@ -94,6 +101,7 @@ Options: -i  --input-folder  Path to a poolsex input folder
 Options: -i  --input-folder  Path to a poolsex input folder
          -s  --step          Step to restart from (index, mapping, sort, groups, merge, duplicates, mpileup, mpileup2sync)
          -r  --run-jobs      If --run-jobs is specified, the pipeline will submit the jobs with qsub
+         -c  --clean-temp    If --clean-temp is specified, results files from intermediate steps will be deleted after completion of the pipeline.
 ''')
         parser.add_argument('--input-folder', '-i',
                             help='Path to a poolsex input folder')
@@ -101,6 +109,9 @@ Options: -i  --input-folder  Path to a poolsex input folder
                             help='Step to restart from')
         parser.add_argument('--run-jobs', '-r', action='store_true',
                             help='If --run-jobs is specified, the pipeline will submit the jobs with qsub.',
+                            default=False)
+        parser.add_argument('--clean-temp', '-c', action='store_true',
+                            help='If --clean-temp is specified, results files from intermediate steps will be deleted after completion of the pipeline.',
                             default=False)
         parser.parse_args(sys.argv[2:])
         self.arguments = self.parser.parse_args(sys.argv[1:])  # This is done here to separate "-h" for each parser
