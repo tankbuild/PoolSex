@@ -131,7 +131,7 @@ java_temp_dir    | Path to java temporary files folder               | `results/
 
 Each value is specified on one line with the syntax `setting=value`. Default values in the previous table are used when no user-specified value is available. Below is an example of *settings.txt* file to set the number of threads to **8** and the total memory to **45G**:
 ```
-threads=16
+threads=8
 mem=45G
 ```
 
