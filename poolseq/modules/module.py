@@ -37,8 +37,8 @@ class Module():
                 else:
                     self.fill_instance(data, instance_sex, file_sex, sex=sex)
         else:
-            if self.pairwise and len(files_info.keys()) > 2:
-                for sex1, sex2 in itertools.combinations(files_info.keys(), 2):
+            if self.pairwise:
+                for sex1, sex2 in itertools.combinations(sorted(files_info.keys()), 2):
                     instance_pair = '_'.join([sex1, sex2])
                     file_pair = '_'.join([full_file_name, sex1, sex2])
                     self.fill_instance(data, instance_pair, file_pair)

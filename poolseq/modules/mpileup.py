@@ -7,7 +7,7 @@ class Mpileup(Module):
     def generate_shell_files(self, data, parameters, qsub_file, hold=True):
         for instance, instance_data in self.instances.items():
             shell_file = open(instance_data['shell'], 'w')
-            input_file_paths = [d['results'] for d in self.input.values()]
+            input_file_paths = sorted([d['results'] for d in self.input.values()])
             genotoul.print_header(shell_file,
                                   name=instance_data['job_id'],
                                   threads=parameters.threads)
