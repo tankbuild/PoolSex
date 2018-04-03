@@ -15,7 +15,7 @@ class Mpileup2sync(Module):
                              ' -Xmx' + parameters.java_mem + ' \\\n' +
                              '-jar ' + parameters.popoolation + ' \\\n' +
                              '--input ' + self.input[instance]['results'] + ' \\\n' +
-                             '--output' + instance_data['results'] + ' \\\n' +
+                             '--output ' + instance_data['results'] + ' \\\n' +
                              '--fastq-type sanger' + ' \\\n' +
                              '--min-qual 20' + ' \\\n' +
                              '--threads ' + parameters.threads)
