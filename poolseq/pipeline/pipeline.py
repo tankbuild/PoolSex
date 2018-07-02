@@ -26,7 +26,8 @@ class Pipeline():
                             'merge': self.modules.merge,
                             'duplicates': self.modules.duplicates,
                             'mpileup': self.modules.mpileup,
-                            'mpileup2sync': self.modules.mpileup2sync}
+                            'mpileup2sync': self.modules.mpileup2sync,
+                            'clean_temp': self.modules.clean_temp}
         self.run_list[self.parser.arguments.command]()
 
     def init(self):
@@ -107,6 +108,8 @@ class Pipeline():
                 self.module_list[self.steps[step]].generate_shell_files(self.data, self.parameters, qsub_file, hold=False)
             else:
                 self.module_list[self.steps[i]].generate_shell_files(self.data, self.parameters, qsub_file)
+        if self.parser.arguments.clean_temp:
+            self.module_list['clean_temp'].generate_shell_files(self.module_list, qsub_file)
 
     def submit_jobs(self):
         if not self.parser.arguments.dry_run:

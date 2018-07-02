@@ -6,6 +6,7 @@ from poolseq.modules.merge import Merge
 from poolseq.modules.duplicates import Duplicates
 from poolseq.modules.mpileup import Mpileup
 from poolseq.modules.mpileup2sync import Mpileup2sync
+from poolseq.modules.clean_temp import CleanTemp
 
 
 class Modules():
@@ -19,3 +20,4 @@ class Modules():
         self.duplicates = Duplicates(data, files_info, 'duplicates', dependency=self.merge)
         self.mpileup = Mpileup(data, files_info, 'mpileup', dependency=self.duplicates)
         self.mpileup2sync = Mpileup2sync(data, files_info, 'mpileup2sync', dependency=self.mpileup)
+        self.clean_temp = CleanTemp(data, files_info, 'clean_temp', dependency=self.mpileup2sync)
