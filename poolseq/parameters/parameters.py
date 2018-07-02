@@ -8,19 +8,13 @@ class Parameters():
         self.mem = '21G'
         self.h_vmem = '25G'
         self.bwa = 'bwa'
-        self.crisp = 'crisp'
         self.samtools = 'samtools'
         self.popoolation = 'mpileup2sync.jar'
-        self.gatk = 'GenomeAnalysisTK.jar'
         self.picard = 'picard.jar'
         self.java = 'java'
         self.java_mem = '20G'
         self.java_temp_dir = os.path.join(data.directories.results, 'tmp')
-        self.max_open_temp_files = '800'
         self.max_file_handles = '1000'
-        self.number_of_individuals = '1'
-        self.min_number_of_reads = '4'
-        self.load(data)
 
     def load(self, data):
         settings_file = open(data.files.settings)
