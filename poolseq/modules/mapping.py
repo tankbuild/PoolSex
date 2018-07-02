@@ -20,7 +20,7 @@ class Mapping(Module):
                              '' + data.genome_path + ' \\\n' +
                              '' + r1_file_path + ' \\\n' +
                              '' + r2_file_path + ' \\\n' +
-                             '| samtools view -b -' + '\\\n' +
+                             '| samtools view -bh -' + '\\\n' +
                              '> ' + instance_data['results'] + '\n')
             shell_file.close()
             qsub_file.write('qsub ')
