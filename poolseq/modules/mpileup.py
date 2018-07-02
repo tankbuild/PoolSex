@@ -13,7 +13,7 @@ class Mpileup(Module):
                                   threads=parameters.threads)
             genotoul.print_java_module(shell_file)
             shell_file.write(parameters.samtools +
-                             ' mpileup -B' + ' \\\n' +
+                             ' mpileup -B -Q 0' + ' \\\n' +
                              '-f ' + data.genome_path + ' \\\n' +
                              '-o ' + instance_data['results'] + ' \\\n' +
                              ' '.join([i for i in input_file_paths]))
