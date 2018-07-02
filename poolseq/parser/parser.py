@@ -73,7 +73,7 @@ Options: -i  --input-folder  Path to a poolsex minimal input folder with the fol
             usage='''python3 poolsex.py run -i input_folder [--dry-run]
 
 Options: -i  --input-folder  Path to a poolsex input folder
-         -d  --dry-run      If --dry-run is specified, the pipeline will generate the shell files without running the jobs
+         -d  --dry-run       If --dry-run is specified, the pipeline will generate the shell files without running the jobs
          -c  --clean-temp    If --clean-temp is specified, results files from intermediate steps will be deleted after completion of the pipeline.
 ''')
         parser.add_argument('--input-folder', '-i',
