@@ -8,8 +8,8 @@ def is_valid_init_folder(folder_path):
     subfolders = [d for d in os.listdir(folder_path)
                   if os.path.isdir(os.path.join(folder_path, d))]
 
-    if dir_names.genomes in subfolders:
-        temp = [f for f in os.listdir(os.path.join(folder_path, dir_names.genomes))
+    if dir_names.genome in subfolders:
+        temp = [f for f in os.listdir(os.path.join(folder_path, dir_names.genome))
                 if f.endswith('.fasta') or f.endswith('.fa') or f.endswith('.fna')]
         if len(temp) == 0:
             print('\n** Error: genome file not found')
@@ -17,6 +17,9 @@ def is_valid_init_folder(folder_path):
         elif len(temp) > 1:
             print('\n** Error: expected one genome file, but found ' + str(len(temp)) + ' ("' + '", "'.join(temp) + '").')
             is_valid = False
+    else:
+        print('\n** Error: \"genome\" directory is missing.')
+        is_valid = False
 
     if dir_names.reads in subfolders:
         temp = [f for f in os.listdir(os.path.join(folder_path, dir_names.reads)) if
@@ -34,5 +37,8 @@ def is_valid_init_folder(folder_path):
                 if len(fields) != 3:
                     print('\n** Error: reads file "' + file + '" has incorrect name. Expected <sex>_<lane>_<mate_number>.<fasta/fastq><.gz>')
                     is_valid = False
+    else:
+        print('\n** Error: \"reads\" directory is missing.')
+        is_valid = False
 
     return is_valid

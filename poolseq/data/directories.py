@@ -6,7 +6,7 @@ class Directories():
 
     def __init__(self, root_dir):
         self.root = os.path.abspath(root_dir)
-        self.genome = os.path.join(self.root, dir_names.genomes)
+        self.genome = os.path.join(self.root, dir_names.genome)
         self.qsub = os.path.join(self.root, dir_names.qsub)
         self.output = os.path.join(self.root, dir_names.qsub, dir_names.output)
         self.reads = os.path.join(self.root, dir_names.reads)
