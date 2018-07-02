@@ -26,7 +26,8 @@ class Parameters():
         settings_file = open(data.files.settings)
         settings = {name: value for
                     name, value in (line[:-1].split('=') for
-                                    line in settings_file)}
+                                    line in settings_file if
+                                    line and not line.startswith('#'))}
         for name, value in settings.items():
             try:
                 setattr(self, name, value)

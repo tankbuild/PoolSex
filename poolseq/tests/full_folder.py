@@ -1,6 +1,7 @@
 import os
 from poolseq.data import directory_names as dir_names
 from poolseq.tests.init_folder import is_valid_init_folder
+from poolseq.data import file_names
 
 
 def is_valid_full_folder(folder_path):
@@ -24,6 +25,10 @@ def is_valid_full_folder(folder_path):
         is_valid = False
     if dir_names.results not in subfolders:
         print('\n** Error: "' + dir_names.results + '" folder not found in the input folder')
+        is_valid = False
+
+    if not os.path.isfile(os.path.join(folder_path, file_names.settings)):
+        print('\n** Error: settings file not found')
         is_valid = False
 
     return is_valid

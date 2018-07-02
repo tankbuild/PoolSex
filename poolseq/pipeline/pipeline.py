@@ -13,10 +13,11 @@ class Pipeline():
         self.parser = Parser(arguments)
         self.data = Data(self.parser.arguments.input_folder)
         self.qsub_file_path = os.path.join(self.data.directories.qsub, 'run_pipeline.sh')
-        self.parameters = Parameters(self.data)
+        if not self.parser.arguments.command == 'init':
+            self.parameters = Parameters(self.data)
         self.files_info = self.get_files_info()
         self.modules = Modules(self.data, self.files_info)
-        self.run_list = {'init': self.init, 'clean': self.clean, 'restart': self.restart}
+        self.run_list = {'init': self.init, 'run': self.run, 'clean': self.clean, 'restart': self.restart}
         self.steps = ('index', 'mapping', 'sort', 'groups', 'merge', 'duplicates', 'mpileup', 'mpileup2sync')
         self.module_list = {'index': self.modules.index,
                             'mapping': self.modules.mapping,
@@ -29,6 +30,10 @@ class Pipeline():
         self.run_list[self.parser.arguments.command]()
 
     def init(self):
+        self.generate_directories()
+        self.generate_settings_file()
+
+    def run(self):
         self.generate_pipeline_shell_files()
         self.submit_jobs()
 
@@ -54,6 +59,32 @@ class Pipeline():
         self.generate_pipeline_shell_files(step=step_n)
         self.submit_jobs()
 
+    def generate_directories(self):
+        if not os.path.isdir(self.data.directories.qsub):
+            os.mkdir(self.data.directories.qsub)
+        if not os.path.isdir(self.data.directories.output):
+            os.mkdir(self.data.directories.output)
+        if not os.path.isdir(self.data.directories.results):
+            os.mkdir(self.data.directories.results)
+        if not os.path.isdir(self.data.directories.shell):
+            os.mkdir(self.data.directories.shell)
+
+    def generate_settings_file(self):
+        settings_file = open(self.data.files.settings, 'w')
+        settings_file.write('# Resources' + '\n')
+        settings_file.write('threads=16' + '\n')
+        settings_file.write('java_mem=40G' + '\n')
+        settings_file.write('mem=45G' + '\n')
+        settings_file.write('h_vmem=46G' + '\n')
+        settings_file.write('# Path to executables' + '\n')
+        settings_file.write('java=java' + '\n')
+        settings_file.write('bwa=bwa' + '\n')
+        settings_file.write('samtools=samtools' + '\n')
+        settings_file.write('picard=/usr/local/bioinfo/src/picard-tools/current/picard.jar' + '\n')
+        settings_file.write('popoolation=/work/project/perch/tools/popoolation/mpileup2sync.jar' + '\n')
+        settings_file.write('# Java option for Picard' + '\n')
+        settings_file.write('max_file_handles=1000' + '\n')
+
     def get_files_info(self):
         files_info = defaultdict(lambda: defaultdict(lambda: list()))
         for file in self.data.reads_paths:
@@ -78,7 +109,7 @@ class Pipeline():
                 self.module_list[self.steps[i]].generate_shell_files(self.data, self.parameters, qsub_file)
 
     def submit_jobs(self):
-        if self.parser.arguments.run_jobs:
+        if not self.parser.arguments.dry_run:
             print('Submitting jobs ...')
             os.system('chmod +x ' + self.qsub_file_path)
             os.system(self.qsub_file_path)

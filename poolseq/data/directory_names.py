@@ -1,4 +1,4 @@
-genomes = 'genomes'
+genomes = 'genome'
 qsub = 'qsub'
 output = 'output'
 reads = 'reads'

@@ -20,8 +20,8 @@ class Data():
                         'mpileup2sync': {'prefix': 'mpileup2sync', 'results_format': 'sync', 'sex': False, 'lane': False, 'mate': False, 'pairwise': True}}
 
     def get_genome_path(self):
-        file = [f for f in os.listdir(self.directories.genomes) if f.endswith('.fasta')][0]
-        return os.path.join(self.directories.genomes, file)
+        file = [f for f in os.listdir(self.directories.genome) if f.endswith('.fasta')][0]
+        return os.path.join(self.directories.genome, file)
 
     def get_reads_path(self):
         return [os.path.join(self.directories.reads, f) for

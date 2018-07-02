@@ -30,8 +30,8 @@ class Index(Module):
                             instance['job_id'] in f]
             for output_file in output_files:
                 os.remove(output_file)
-            results_files = [os.path.join(data.directories.genomes, f) for
-                             f in os.listdir(data.directories.genomes)]
+            results_files = [os.path.join(data.directories.genome, f) for
+                             f in os.listdir(data.directories.genome)]
             for results_file in results_files:
                 if results_file != data.genome_path:
                     os.remove(results_file)

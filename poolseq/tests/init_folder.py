@@ -1,6 +1,5 @@
 import os
 from poolseq.data import directory_names as dir_names
-from poolseq.data import file_names
 
 
 def is_valid_init_folder(folder_path):
@@ -35,9 +34,5 @@ def is_valid_init_folder(folder_path):
                 if len(fields) != 3:
                     print('\n** Error: reads file "' + file + '" has incorrect name. Expected <sex>_<lane>_<mate_number>.<fasta/fastq><.gz>')
                     is_valid = False
-
-    if not os.path.isfile(os.path.join(folder_path, file_names.settings)):
-        print('\n** Error: settings file not found')
-        is_valid = False
 
     return is_valid
