@@ -12,7 +12,6 @@ class CleanTemp(Module):
                                   name=instance_data['job_id'])
             for module, module_data in modules.items():
                 if module not in modules_to_keep:
-                    print(module_data)
                     shell_file.write('rm -rf ' + ' '.join((instance['results']) for
                                                           instance in module_data.instances.values()) + '\n')
             shell_file.close()
