@@ -15,7 +15,6 @@ class CleanTemp(Module):
                     shell_file.write('rm -rf ' + ' '.join((instance['results']) for
                                                           instance in module_data.instances.values()) + '\n')
             shell_file.close()
-            qsub_file.write('qsub ')
             hold_ids = [d['job_id'] for d in self.input.values()]
             qsub_file.write('qsub ')
             if hold:
