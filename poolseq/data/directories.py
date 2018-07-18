@@ -1,15 +1,33 @@
 import os
-from poolseq.data import directory_names as dir_names
+from poolseq.data.variables import variables
+
+names = {
+    variables.directories.genome: 'genome',
+    variables.directories.qsub: 'qsub',
+    variables.directories.output: 'output',
+    variables.directories.reads: 'reads',
+    variables.directories.results: 'results',
+    variables.directories.poolseq: 'poolseq',
+    variables.directories.shell: 'shell'
+}
 
 
-class Directories():
+def get_directories_info(root_dir):
 
-    def __init__(self, root_dir):
-        self.root = os.path.abspath(root_dir)
-        self.genome = os.path.join(self.root, dir_names.genome)
-        self.qsub = os.path.join(self.root, dir_names.qsub)
-        self.output = os.path.join(self.root, dir_names.qsub, dir_names.output)
-        self.reads = os.path.join(self.root, dir_names.reads)
-        self.results = os.path.join(self.root, dir_names.results)
-        self.poolseq = os.path.join(self.root, dir_names.poolseq)
-        self.shell = os.path.join(self.root, dir_names.shell)
+    '''
+    Directories names are defined in this function.
+    The function returns a dictionary giving the full path to each directory.
+    '''
+
+    directories = {
+        variables.directories.root: os.path.abspath(root_dir),
+        variables.directories.genome: os.path.join(root_dir, names[variables.directories.genome]),
+        variables.directories.qsub: os.path.join(root_dir, names[variables.directories.qsub]),
+        variables.directories.output: os.path.join(root_dir, names[variables.directories.qsub], names[variables.directories.output]),
+        variables.directories.reads: os.path.join(root_dir, names[variables.directories.reads]),
+        variables.directories.results: os.path.join(root_dir, names[variables.directories.results]),
+        variables.directories.poolseq: os.path.join(root_dir, names[variables.directories.poolseq]),
+        variables.directories.shell: os.path.join(root_dir, names[variables.directories.shell])
+    }
+
+    return directories

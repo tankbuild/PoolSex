@@ -1,31 +1,25 @@
-import os
-from poolseq.data.directories import Directories
-from poolseq.data.files import Files
+from poolseq.data.directories import get_directories_info
+from poolseq.data.files import get_files_info
+from poolseq.data.modules import get_modules_info
+from poolseq.data.schedulers import get_schedulers_info
+from poolseq.data.parameters import get_parameters_info
 
 
 class Data():
 
+    '''
+    The Data class stores the following information:
+    - Variables: name of the commonly used variables
+    - Directories: path to the directories within a PoolSex directory
+    - Files: path to the files used by the pipeline
+    - Modules: all the information about each module
+    - Schedulers: all the information about different schedulers
+    - Parameters: default parameters values
+    '''
+
     def __init__(self, root_dir):
-        self.directories = Directories(root_dir)
-        self.files = Files(root_dir)
-        self.genome_path = self.get_genome_path()
-        self.reads_paths = self.get_reads_path()
-        self.modules = {'index': {'prefix': 'index', 'results_format': '', 'sex': False, 'lane': False, 'mate': False, 'pairwise': False},
-                        'mapping': {'prefix': 'mapping', 'results_format': 'bam', 'sex': True, 'lane': True, 'mate': True, 'pairwise': False},
-                        'sort': {'prefix': 'sort', 'results_format': 'bam', 'sex': True, 'lane': True, 'mate': False, 'pairwise': False},
-                        'groups': {'prefix': 'groups', 'results_format': 'bam', 'sex': True, 'lane': True, 'mate': False, 'pairwise': False},
-                        'merge': {'prefix': 'merge', 'results_format': 'bam', 'sex': True, 'lane': False, 'mate': False, 'pairwise': False},
-                        'duplicates': {'prefix': 'duplicates', 'results_format': 'bam', 'sex': True, 'lane': False, 'mate': False, 'pairwise': False},
-                        'mpileup': {'prefix': 'mpileup', 'results_format': 'pileup', 'sex': False, 'lane': False, 'mate': False, 'pairwise': True},
-                        'mpileup2sync': {'prefix': 'mpileup2sync', 'results_format': 'sync', 'sex': False, 'lane': False, 'mate': False, 'pairwise': True},
-                        'clean_temp': {'prefix': 'clean_temp', 'results_format': '', 'sex': False, 'lane': False, 'mate': False, 'pairwise': False}}
-
-    def get_genome_path(self):
-        file = [f for f in os.listdir(self.directories.genome) if f.endswith('.fasta')][0]
-        return os.path.join(self.directories.genome, file)
-
-    def get_reads_path(self):
-        return [os.path.join(self.directories.reads, f) for
-                f in os.listdir(self.directories.reads) if
-                f.endswith('.fastq.gz') or f.endswith('.fasta.gz') or
-                f.endswith('.fastq') or f.endswith('.fasta')]
+        self.directories = get_directories_info(root_dir)
+        self.files = get_files_info(self.directories)
+        self.modules = get_modules_info()
+        self.schedulers = get_schedulers_info()
+        self.parameters = get_parameters_info()

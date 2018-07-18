@@ -1,7 +1,7 @@
 import argparse
 import sys
 import os
-import poolseq.tests as tests
+from poolseq.parameters.test_folders import is_valid_full_folder, is_valid_init_folder
 
 
 class Parser():
@@ -147,13 +147,13 @@ Options: -i  --input-folder  Path to a poolsex input folder
             exit(1)
         else:
             if full:
-                if not tests.is_valid_full_folder(self.arguments.input_folder):
+                if not is_valid_full_folder(self.arguments.input_folder):
                     print('\n** Error: input folder "' + self.arguments.input_folder + '"' + ' is not a valid input folder' + '\n')
                     parser.print_usage()
                     print()
                     exit(1)
             else:
-                if not tests.is_valid_init_folder(self.arguments.input_folder):
+                if not is_valid_init_folder(self.arguments.input_folder):
                     print('\n** Error: input folder "' + self.arguments.input_folder + '"' + ' is not a valid input folder' + '\n')
                     parser.print_usage()
                     print()

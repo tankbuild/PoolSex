@@ -1,102 +1,91 @@
 import os
 import itertools
 from collections import defaultdict
+from poolseq.data import variables
 
 
 class Module():
 
-    def __init__(self, data, files_info, name, dependency=None):
-        self.prefix = data.modules[name]['prefix']
-        self.sex = data.modules[name]['sex']
-        self.lane = data.modules[name]['lane']
-        self.mate = data.modules[name]['mate']
-        self.pairwise = data.modules[name]['pairwise']
-        self.results_format = data.modules[name]['results_format']
-        self.instances = defaultdict(lambda: {'shell': None, 'results': None, 'job_id': None,
-                                              'sex': None, 'lane': None, 'mates': None, })
+    def __init__(self, name, module_data, data, files_info):
+        self.data = module_data
+        self.name = name
+        self.instances = defaultdict(lambda: {variables.instance_options.name: None,
+                                              variables.instance_options.shell: None,
+                                              variables.instance_options.shell_name: None,
+                                              variables.instance_options.output: None,
+                                              variables.instance_options.error: None,
+                                              variables.instance_options.input: None,
+                                              variables.instance_options.dependencies: None,
+                                              variables.instance_options.results: None,
+                                              variables.instance_options.sex: None,
+                                              variables.instance_options.lane: None,
+                                              variables.instance_options.mates: None})
         self.get_instances(data, files_info)
-        if dependency:
-            self.input = dependency.instances
-        else:
-            self.input = None
 
     def get_instances(self, data, files_info):
-        full_file_name = self.prefix
-        if self.sex:
+        if self.data[variables.modules_options.sex]:
             for sex, lanes in files_info.items():
-                instance_sex = sex
-                file_sex = '_'.join([full_file_name, sex])
-                if self.lane:
+                if self.data[variables.modules_options.lane]:
                     for lane, mates in lanes.items():
-                        instance_lane = '_'.join([instance_sex, lane])
-                        file_lane = '_'.join([file_sex, lane])
-                        if self.mate:
-                            self.fill_instance(data, instance_lane, file_lane, sex=sex, lane=lane, mates=mates)
+                        instance_name = '_'.join([sex, lane])
+                        if self.data[variables.modules_options.mate]:
+                            self.fill_instance(data, instance_name, sex=sex, lane=lane, mates=mates)
                         else:
-                            self.fill_instance(data, instance_lane, file_lane, sex=sex, lane=lane)
+                            self.fill_instance(data, instance_name, sex=sex, lane=lane)
                 else:
-                    self.fill_instance(data, instance_sex, file_sex, sex=sex)
+                    instance_name = sex
+                    self.fill_instance(data, instance_name, sex=sex)
         else:
-            if self.pairwise:
+            if self.data[variables.modules_options.pairwise]:
                 for sex1, sex2 in itertools.combinations(sorted(files_info.keys()), 2):
-                    instance_pair = '_'.join([sex1, sex2])
-                    file_pair = '_'.join([full_file_name, sex1, sex2])
-                    self.fill_instance(data, instance_pair, file_pair)
+                    instance_name = '_'.join([sex1, sex2])
+                    self.fill_instance(data, instance_name)
             else:
-                self.fill_instance(data, 'unique', full_file_name)
+                self.fill_instance(data, 'unique')
 
-    def fill_instance(self, data, instance_name, full_file_name, sex=None, lane=None, mates=None):
-        self.instances[instance_name]['shell'] = os.path.join(data.directories.shell, full_file_name + '.sh')
-        self.instances[instance_name]['results'] = os.path.join(data.directories.results, full_file_name + '.' + self.results_format)
-        self.instances[instance_name]['job_id'] = full_file_name
-        if sex:
-            self.instances[instance_name]['sex'] = sex
-        if lane:
-            self.instances[instance_name]['lane'] = lane
-        if mates:
-            self.instances[instance_name]['mates'] = mates
+    def fill_instance(self, data, instance_name, sex=None, lane=None, mates=None):
+        if instance_name != 'unique':
+            suffix = '_' + instance_name
+        else:
+            suffix = ''
+        self.instances[instance_name][variables.instance_options.shell] = os.path.join(data.directories[variables.directories.shell], self.data[variables.modules_options.prefix] + suffix + '.sh')
+        self.instances[instance_name][variables.instance_options.shell_name] = self.data[variables.modules_options.prefix] + suffix
+        self.instances[instance_name][variables.instance_options.output] = os.path.join(data.directories[variables.directories.output], self.data[variables.modules_options.prefix] + suffix + '.output')
+        self.instances[instance_name][variables.instance_options.error] = os.path.join(data.directories[variables.directories.output], self.data[variables.modules_options.prefix] + suffix + '.error')
+        if self.data[variables.modules_options.results_format]:
+            self.instances[instance_name][variables.instance_options.results] = os.path.join(data.directories[variables.directories.results],
+                                                                                             self.data[variables.modules_options.prefix] +
+                                                                                             suffix +
+                                                                                             '.' + self.data[variables.modules_options.results_format])
+        self.instances[instance_name][variables.instance_options.name] = instance_name
+        self.instances[instance_name][variables.instance_options.sex] = sex
+        self.instances[instance_name][variables.instance_options.lane] = lane
+        self.instances[instance_name][variables.instance_options.mates] = mates
 
-    def clean_module_files(self, data):
+    def clean_module_files(self):
         for instance in self.instances.values():
-            if os.path.isfile(instance['results']):
-                os.remove(instance['results'])
-            if os.path.isfile(instance['shell']):
-                os.remove(instance['shell'])
-            output_files = [os.path.join(data.directories.output, f) for
-                            f in os.listdir(data.directories.output) if
-                            f.split('.')[0] == instance['job_id']]
-            for output_file in output_files:
-                os.remove(output_file)
+            if instance[variables.instance_options.results] and os.path.isfile(instance[variables.instance_options.results]):
+                os.remove(instance[variables.instance_options.results])
+            if instance[variables.instance_options.shell] and os.path.isfile(instance[variables.instance_options.shell]):
+                os.remove(instance[variables.instance_options.shell])
+            if instance[variables.instance_options.output] and os.path.isfile(instance[variables.instance_options.output]):
+                os.remove(instance[variables.instance_options.output])
+            if instance[variables.instance_options.error] and os.path.isfile(instance[variables.instance_options.error]):
+                os.remove(instance[variables.instance_options.error])
 
-    def was_successful(self, data):
-        success = True
+    def was_successful(self):
         for instance in self.instances.values():
-            output_files = [os.path.join(data.directories.output, f) for
-                            f in os.listdir(data.directories.output) if
-                            f.split('.')[0] == instance['job_id'] and
-                            f.split('.')[1][0] == 'o']
-            if len(output_files) == 0:
-                success = False
-            elif len(output_files) == 1:
-                if not self.test_output_file(output_files[0]):
-                    success = False
-            else:
-                edit_times = {file: os.path.getmtime(file) for file in output_files}
-                last_file = max(edit_times, key=edit_times.get)
-                if not self.test_output_file(last_file):
-                    success = False
-        return success
-
-    def test_output_file(self, output_file_path):
-        success = True
-        file = open(output_file_path)
-        line = 'a'
-        while line:
-            temp = file.readline()
-            if temp:
-                line = temp
-            else:
-                break
-        if not line.startswith('Epilog : job finished'):
-            success = False
-        return success
+            try:
+                file = open(instance[variables.directories.output])
+            except OSError:
+                return False
+            line = 'a'
+            while line:
+                temp = file.readline()
+                if temp:
+                    line = temp
+                else:
+                    break
+            if not line.startswith('Epilog : job finished'):
+                return False
+        return True
