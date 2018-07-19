@@ -22,11 +22,11 @@ def mapping(data, parameters, instance_data):
                                 instance_data[variables.instance_options.mates][0] +
                                 '.fastq.gz')
     command = (parameters[variables.parameters.bwa] + ' mem \\\n' +
-               ' -t ' + str(parameters[variables.parameters.threads]) + '\\\n' +
+               ' -t ' + str(parameters[variables.parameters.threads]) + ' \\\n' +
                data.files[variables.files.genome] + ' \\\n' +
                r1_file_path + ' \\\n' +
                r2_file_path + ' \\\n' +
-               '| samtools view -bh -' + '\\\n' +
+               '| samtools view -bh -' + ' \\\n' +
                '> ' + instance_data[variables.instance_options.results] + '\n')
     return command
 
