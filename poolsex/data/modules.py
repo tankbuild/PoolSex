@@ -1,6 +1,6 @@
 from collections import OrderedDict
-from poolseq.data.variables import variables
-from poolseq.data import module_commands as commands
+from poolsex.data.variables import variables
+from poolsex.data import module_commands as commands
 
 
 def get_modules_info():

@@ -1,6 +1,6 @@
 import re
 import subprocess
-from poolseq.data import variables
+from poolsex.data import variables
 
 
 class Scheduler:

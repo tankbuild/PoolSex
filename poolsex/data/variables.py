@@ -7,7 +7,7 @@ class Directories:
         self.output = 'output'
         self.reads = 'reads'
         self.results = 'results'
-        self.poolseq = 'poolseq'
+        self.poolsex = 'poolsex'
         self.shell = 'shell'
 
 

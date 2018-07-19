@@ -1,5 +1,5 @@
 import os
-from poolseq.data import variables
+from poolsex.data import variables
 
 
 def get_parameters(data):

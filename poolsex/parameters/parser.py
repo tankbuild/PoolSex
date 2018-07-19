@@ -1,7 +1,7 @@
 import argparse
 import sys
 import os
-from poolseq.parameters.test_folders import is_valid_full_folder, is_valid_init_folder
+from poolsex.parameters.test_folders import is_valid_full_folder, is_valid_init_folder
 
 
 class Parser():

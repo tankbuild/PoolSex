@@ -1,4 +1,4 @@
-from poolseq.data.variables import variables
+from poolsex.data.variables import variables
 
 schedulers = {
     # SGE environment

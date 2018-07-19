@@ -1,5 +1,5 @@
 import os
-from poolseq.data.variables import variables
+from poolsex.data.variables import variables
 
 names = {
     variables.directories.genome: 'genome',
@@ -7,7 +7,7 @@ names = {
     variables.directories.output: 'output',
     variables.directories.reads: 'reads',
     variables.directories.results: 'results',
-    variables.directories.poolseq: 'poolseq',
+    variables.directories.poolsex: 'poolsex',
     variables.directories.shell: 'shell'
 }
 
@@ -28,7 +28,7 @@ def get_directories_info(root_dir):
         variables.directories.output: os.path.join(root_dir, names[variables.directories.qsub], names[variables.directories.output]),
         variables.directories.reads: os.path.join(root_dir, names[variables.directories.reads]),
         variables.directories.results: os.path.join(root_dir, names[variables.directories.results]),
-        variables.directories.poolseq: os.path.join(root_dir, names[variables.directories.poolseq]),
+        variables.directories.poolsex: os.path.join(root_dir, names[variables.directories.poolsex]),
         variables.directories.shell: os.path.join(root_dir, names[variables.directories.shell])
     }
 

@@ -1,7 +1,7 @@
 from collections import defaultdict, OrderedDict
 import os
-from poolseq.modules import Module
-from poolseq.data import variables
+from poolsex.modules import Module
+from poolsex.data import variables
 
 
 def create_modules(data):

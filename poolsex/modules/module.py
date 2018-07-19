@@ -1,7 +1,7 @@
 import os
 import itertools
 from collections import defaultdict
-from poolseq.data import variables
+from poolsex.data import variables
 
 
 class Module():

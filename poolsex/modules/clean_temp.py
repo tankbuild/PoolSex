@@ -1,5 +1,5 @@
-import poolseq.genotoul as genotoul
-from poolseq.modules.module import Module
+import poolsex.genotoul as genotoul
+from poolsex.modules.module import Module
 
 
 class CleanTemp(Module):

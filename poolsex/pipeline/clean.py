@@ -1,4 +1,4 @@
-from poolseq.data import variables
+from poolsex.data import variables
 
 
 def remove_modules_files(modules, step=variables.modules.index, check=False):

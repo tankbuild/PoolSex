@@ -1,4 +1,4 @@
 import sys
-from poolseq import Pipeline
+from poolsex import Pipeline
 
 p = Pipeline(sys.argv)

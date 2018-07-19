@@ -1,9 +1,9 @@
 from collections import defaultdict
-from poolseq.parameters import Parser, get_parameters
-from poolseq.data import Data, variables
-from poolseq.scheduler import Scheduler
-from poolseq.modules import create_modules
-from poolseq.pipeline import init, clean
+from poolsex.parameters import Parser, get_parameters
+from poolsex.data import Data, variables
+from poolsex.scheduler import Scheduler
+from poolsex.modules import create_modules
+from poolsex.pipeline import init, clean
 
 
 class Pipeline():

@@ -1,8 +1,8 @@
-from poolseq.data.directories import get_directories_info
-from poolseq.data.files import get_files_info
-from poolseq.data.modules import get_modules_info
-from poolseq.data.schedulers import get_schedulers_info
-from poolseq.data.parameters import get_parameters_info
+from poolsex.data.directories import get_directories_info
+from poolsex.data.files import get_files_info
+from poolsex.data.modules import get_modules_info
+from poolsex.data.schedulers import get_schedulers_info
+from poolsex.data.parameters import get_parameters_info
 
 
 class Data():

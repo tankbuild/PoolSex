@@ -1,5 +1,5 @@
 import os
-from poolseq.data.variables import variables
+from poolsex.data.variables import variables
 
 
 def index(data, parameters, instance_data):

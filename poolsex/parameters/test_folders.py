@@ -1,5 +1,5 @@
 import os
-from poolseq.data import directories_names, files_names, variables
+from poolsex.data import directories_names, files_names, variables
 
 
 def is_valid_init_folder(folder_path):
