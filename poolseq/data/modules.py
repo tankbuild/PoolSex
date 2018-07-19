@@ -8,7 +8,8 @@ def get_modules_info():
     '''
     All the information about each module is defined in this function:
     - prefix: prefix of the shell file / output file / job name
-    - results_format: format of the output file
+    - clean_temp: files should be removed if "clean_temp" option is on ()
+    - results_format: format of
     - sex: separate sexes (T/F)
     - lane: separate lane (T/F)
     - mate: separate mates (T/F)
@@ -18,6 +19,7 @@ def get_modules_info():
     '''
 
     modules = OrderedDict([(variables.modules.index, {variables.modules_options.prefix: 'index',
+                                                      variables.modules_options.clean_temp: False,
                                                       variables.modules_options.results_format: None,
                                                       variables.modules_options.sex: False,
                                                       variables.modules_options.lane: False,
@@ -31,6 +33,7 @@ def get_modules_info():
                                                       }),
 
                            (variables.modules.mapping, {variables.modules_options.prefix: 'mapping',
+                                                        variables.modules_options.clean_temp: True,
                                                         variables.modules_options.results_format: 'bam',
                                                         variables.modules_options.sex: True,
                                                         variables.modules_options.lane: True,
@@ -45,6 +48,7 @@ def get_modules_info():
                                                         }),
 
                            (variables.modules.sort, {variables.modules_options.prefix: 'sort',
+                                                     variables.modules_options.clean_temp: True,
                                                      variables.modules_options.results_format: 'bam',
                                                      variables.modules_options.sex: True,
                                                      variables.modules_options.lane: True,
@@ -60,6 +64,7 @@ def get_modules_info():
                                                      }),
 
                            (variables.modules.groups, {variables.modules_options.prefix: 'groups',
+                                                       variables.modules_options.clean_temp: True,
                                                        variables.modules_options.results_format: 'bam',
                                                        variables.modules_options.sex: True,
                                                        variables.modules_options.lane: True,
@@ -75,6 +80,7 @@ def get_modules_info():
                                                        }),
 
                            (variables.modules.merge, {variables.modules_options.prefix: 'merge',
+                                                      variables.modules_options.clean_temp: True,
                                                       variables.modules_options.results_format: 'bam',
                                                       variables.modules_options.sex: True,
                                                       variables.modules_options.lane: False,
@@ -90,6 +96,7 @@ def get_modules_info():
                                                       }),
 
                            (variables.modules.duplicates, {variables.modules_options.prefix: 'duplicates',
+                                                           variables.modules_options.clean_temp: False,
                                                            variables.modules_options.results_format: 'bam',
                                                            variables.modules_options.sex: True,
                                                            variables.modules_options.lane: False,
@@ -105,6 +112,7 @@ def get_modules_info():
                                                            }),
 
                            (variables.modules.mpileup, {variables.modules_options.prefix: 'mpileup',
+                                                        variables.modules_options.clean_temp: True,
                                                         variables.modules_options.results_format: 'pileup',
                                                         variables.modules_options.sex: False,
                                                         variables.modules_options.lane: False,
@@ -119,6 +127,7 @@ def get_modules_info():
                                                         }),
 
                            (variables.modules.mpileup2sync, {variables.modules_options.prefix: 'mpileup2sync',
+                                                             variables.modules_options.clean_temp: False,
                                                              variables.modules_options.results_format: 'sync',
                                                              variables.modules_options.sex: False,
                                                              variables.modules_options.lane: False,
@@ -133,6 +142,7 @@ def get_modules_info():
                                                              }),
 
                            (variables.modules.clean_temp, {variables.modules_options.prefix: 'clean_temp',
+                                                           variables.modules_options.clean_temp: False,
                                                            variables.modules_options.results_format: None,
                                                            variables.modules_options.sex: False,
                                                            variables.modules_options.lane: False,
@@ -142,7 +152,7 @@ def get_modules_info():
                                                                                                variables.submit_options.output,
                                                                                                variables.submit_options.error],
                                                            variables.modules_options.dependencies: variables.modules.mpileup2sync,
-                                                           variables.modules_options.command: commands.index
+                                                           variables.modules_options.command: commands.clean_temp
                                                            })]
                           )
 

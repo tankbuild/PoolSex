@@ -30,10 +30,10 @@ class Scheduler:
         file.write('\n')
         for module_to_load in self.modules[module.name]:
             file.write('module load ' + module_to_load + '\n')
-        file.write('\n')
+        if len(self.modules[module.name]) > 0:
+            file.write('\n')
 
-    def write_shell_file(self, module, instance, data, parameters):
-        instance_data = module.instances[instance]
+    def write_shell_file(self, module, instance_data, data, parameters):
         shell_file = open(instance_data[variables.instance_options.shell], 'w')
         self.write_header(shell_file, module, parameters, instance_data)
         shell_file.write(module.data[variables.modules_options.command](data, parameters, instance_data))

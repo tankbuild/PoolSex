@@ -22,15 +22,17 @@ class Pipeline():
         self.run_commands[self.parser.arguments.command]()
 
     def init(self):
+        clean.remove_modules_files(self.modules)
         init.generate_directories(self.data)
         init.generate_settings_file(self.data, self.parameters)
 
     def run(self):
+        clean.remove_modules_files(self.modules)
         self.generate_pipeline_shell_files()
         self.submit_jobs()
 
     def clean(self, step=variables.modules.index):
-        clean.remove_modules_files(self.modules, step=variables.modules.index)
+        clean.remove_modules_files(self.modules, step=step, check=True)
 
     def restart(self):
         if not self.parser.arguments.step:
@@ -47,12 +49,19 @@ class Pipeline():
 
     def generate_pipeline_shell_files(self, step=variables.modules.index):
         generate = False
+        files_to_clean = []
         for name, module in self.modules.items():
             if name == step:
                 generate = True
             if generate:
-                for instance in module.instances.keys():
-                    self.scheduler.write_shell_file(module, instance, self.data, self.parameters)
+                for instance_data in module.instances.values():
+                    if module.name == variables.modules.clean_temp:
+                        instance_data[variables.instance_options.input] = files_to_clean
+                        if not self.parser.arguments.clean_temp:
+                            break
+                    self.scheduler.write_shell_file(module, instance_data, self.data, self.parameters)
+                    if self.parser.arguments.clean_temp and module.data[variables.modules_options.clean_temp]:
+                        files_to_clean.append(instance_data[variables.instance_options.results])
 
     def submit_jobs(self, step=variables.modules.index):
         submit = False
@@ -64,6 +73,8 @@ class Pipeline():
                 submit = True
             if submit:
                 for instance, instance_data in module.instances.items():
+                    if name == variables.modules.clean_temp and not self.parser.arguments.clean_temp:
+                        break
                     job_id = self.scheduler.submit(instance_data, hold_ids=hold_ids[module.data[variables.modules_options.dependencies]])
                     if not job_id:
                         exit(1)

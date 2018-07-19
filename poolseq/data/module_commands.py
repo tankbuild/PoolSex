@@ -106,3 +106,8 @@ def mpileup2sync(data, parameters, instance_data):
                '--min-qual 20' + ' \\\n' +
                '--threads ' + str(parameters[variables.parameters.threads]) + '\n')
     return command
+
+
+def clean_temp(data, parameters, instance_data):
+    command = ('rm -rf ' + ' \\\n'.join(instance_data[variables.instance_options.input]) + '\n')
+    return command

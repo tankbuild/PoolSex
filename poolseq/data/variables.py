@@ -52,6 +52,7 @@ class Modules:
 class ModulesOptions:
     def __init__(self):
         self.prefix = 'prefix',
+        self.clean_temp = 'clean_temp',
         self.results_format = 'results_format',
         self.sex = 'sex',
         self.lane = 'lane',
