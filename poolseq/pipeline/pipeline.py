@@ -37,7 +37,7 @@ class Pipeline():
     def restart(self):
         if not self.parser.arguments.step:
             for step, module in self.modules.items():
-                success = module.was_successful(self.data)
+                success = module.was_successful()
                 if not success:
                     break
         else:
