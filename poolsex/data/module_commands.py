@@ -19,7 +19,7 @@ def mapping(data, parameters, instance_data):
     r2_file_path = os.path.join(data.directories[variables.files.reads],
                                 instance_data[variables.instance_options.name] +
                                 '_' +
-                                instance_data[variables.instance_options.mates][0] +
+                                instance_data[variables.instance_options.mates][1] +
                                 '.fastq.gz')
     command = (parameters[variables.parameters.bwa] + ' mem \\\n' +
                ' -t ' + str(parameters[variables.parameters.threads]) + ' \\\n' +
