@@ -71,5 +71,7 @@ def create_modules(data):
                                             i[variables.instance_options.sex] == instance_data[variables.instance_options.sex] and
                                             i[variables.instance_options.lane] == instance_data[variables.instance_options.lane]]
                             modules[name].instances[instance][variables.instance_options.dependencies] = dependencies
+                if input_files:
+                    input_files.sort()
 
     return modules

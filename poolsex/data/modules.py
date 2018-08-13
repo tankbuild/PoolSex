@@ -4,7 +4,6 @@ from poolsex.data import module_commands as commands
 
 
 def get_modules_info():
-
     '''
     All the information about each module is defined in this function:
     - prefix: prefix of the shell file / output file / job name
