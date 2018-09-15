@@ -19,7 +19,7 @@ The PoolSex pipeline is used to analyze pooled sequencing data with focus on sex
 
 ## Quickstart
 
-- Create a basic input directory. This directory should have the following structure:
+1. Create a basic input directory. This directory should have the following structure:
 
 ```.
 ├─── genomes
@@ -30,15 +30,13 @@ The PoolSex pipeline is used to analyze pooled sequencing data with focus on sex
       └────── ...
 ```
 
-- Run `python3 poolsex.py init -i path_to_folder`. This command generates a full directory structure and a default settings file which contains important settings values.
+2. Run `python3 poolsex.py init -i path_to_folder`. This command generates a full directory structure and a default settings file which contains important settings values.
 Each value is specified on one line with the syntax `setting=value`. For instance, the number of threads to use can be set to 16 with the line `threads=16`.
 See the [usage](#init) section for details on the available settings.
 
-- Run `python3 poolsex.py run -i path_to_folder`
+3. Run `python3 poolsex.py run -i path_to_folder`
 
-- The final output files will be located in the `results` folder under the name(s) `mpileup2sync_<sex1>_<sex2>.sync`.
-
-- These files can then be used as input for the `poolsex_analysis` software
+The final output file will be located in the `results` folder under the name(s) `mpileup2sync_<sex1>_<sex2>.sync`. This file can then be used as input for the [poolsex_analysis software](https://github.com/INRA-LPGP/poolsex_analysis).
 
 ## Description
 
