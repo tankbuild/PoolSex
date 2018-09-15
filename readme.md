@@ -2,7 +2,7 @@
 
 ## Overview
 
-The PoolSex pipeline is used to analyze pooled sequencing data with focus on sex. This specific component of the pipeline is used to generate shell files for each part of the pipeline and submit them on an SGE scheduler.
+The PoolSex pipeline is used to analyze pooled sequencing data with focus on sex. This specific component of the pipeline is used to generate shell files for each part of the pipeline and submit them on an SGE or a SLURM scheduler. The two other components of the PoolSex pipeline are [PoolSex-analyses](https://github.com/INRA-LPGP/poolsex_analysis), which outputs FST, sex-specific SNPs, and coverage from the final output of PoolSex, and [PoolSex-vis](https://github.com/INRA-LPGP/PoolSex-vis), an R package to visualize the results of PoolSex-analyses.
 
 ## Requirements
 
@@ -53,9 +53,9 @@ The PoolSex pipeline generates and runs scripts to process pooled sequencing dat
 - Generating a pileup file with Samtools
 - Generating a sync file with Popoolation
 
-The pipeline is designed to run on a computational platform using an SGE scheduler.
+The pipeline is designed to run on a computational platform using an SGE or a SLURM scheduler. Please note that the pipeline was developed and tested in a specific environment (the [Genotoul](http://bioinfo.genotoul.fr/) platform), and the pipeline may have to be adapted to work in other environments.
 
-The resulting sync file is used as the main input in the `poolsex_analysis` software (https://github.com/INRA-LPGP/poolsex_analysis).
+The resulting sync file is used as the main input in the [poolsex_analysis software](https://github.com/INRA-LPGP/poolsex_analysis).
 
 ## Usage
 
@@ -102,9 +102,10 @@ The settings file is used to define the values of the pipeline's parameters, whi
 
 Setting          | Description                                       | Default value
 ---------------- | ------------------------------------------------- | -----------------
+scheduler        | Type of scheduler ("sge" / "slurm")               | `slurm`
 threads          | Number of threads to use when possible            | `16`
-mem              | Total memory to allocate                          | `21G`
-h_vmem           | Upper memory limit for SGE                        | `25G`
+mem              | Total memory to allocate (for SGE or SLURM)       | `21G`
+h_vmem           | Upper memory limit (for SGE only)                 | `25G`
 bwa              | Path to BWA executable                            | `bwa`
 samtools         | Path to Samtools executable                       | `samtools`
 popoolation      | Path to Popoolation mpileup2sync.jar              | `mpileup2sync.jar`
@@ -127,11 +128,11 @@ mem=45G
 
 **Options** :
 
-Option | Long flag | Description
---- | --- | ---
-`-i` | --input-folder | Path to a minimal input directory with the correct structure |
-`-d` | --dry-run | If --dry-run is specified, the pipeline will generate the shell files without running the jobs |
-`-c` | --clean-temp | Delete results from intermediate steps. Only index files, BAM files are duplicates removal, and mpileup2sync results will be kept. |
+Option | Long flag      | Description
+------ | -------------- | -----------
+`-i`   | --input-folder | Path to a minimal input directory with the correct structure |
+`-d`   | --dry-run      | If --dry-run is specified, the pipeline will generate the shell files without running the jobs |
+`-c`   | --clean-temp   | Delete results from intermediate steps. Only index files, BAM files are duplicates removal, and mpileup2sync results will be kept. |
 
 
 ### clean
