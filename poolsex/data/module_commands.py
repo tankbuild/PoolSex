@@ -99,7 +99,7 @@ def mpileup(data, parameters, instance_data):
 def mpileup2sync(data, parameters, instance_data):
     command = (parameters[variables.parameters.java] +
                ' -Xmx' + parameters[variables.parameters.java_mem] + ' \\\n' +
-               '-jar ' + parameters[variables.parameters.popoolation] + ' \\\n' +
+               '-jar ' + '/usr/local/bioinfo/src/PoPoolation2/popoolation2_1201/' + parameters[variables.parameters.popoolation] + ' \\\n' +
                '--input ' + ' '.join(instance_data[variables.instance_options.input]) + ' \\\n' +
                '--output ' + instance_data[variables.instance_options.results] + ' \\\n' +
                '--fastq-type sanger' + ' \\\n' +
